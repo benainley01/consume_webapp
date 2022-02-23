@@ -1,0 +1,7 @@
+.nav-link, .checked{
+    color: #2F6DBA;
+}
+
+.profile.rounded-circle, .card-img-top{
+    object-fit: cover;
+}
