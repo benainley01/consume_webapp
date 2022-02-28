@@ -1,7 +1,15 @@
-.nav-link, .checked{
-    color: #2F6DBA;
+.nav-link,
+.checked {
+  color: #2f6dba;
 }
 
-.profile.rounded-circle, .card-img-top{
-    object-fit: cover;
+.profile.rounded-circle,
+.card-img-top {
+  object-fit: cover;
+}
+
+h1 {
+  color: #2f6dba;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
