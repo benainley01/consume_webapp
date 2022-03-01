@@ -28,14 +28,12 @@ h1 {
   transform: scale(1.05);
 }
 
-/* From login template */
-.divider:after,
-.divider:before {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: #eee;
+#loginButton, #registerLink{
+  display: flex;
+  justify-content: center;
+  align-items:center;
 }
+
 .h-custom {
   height: calc(100% - 73px);
 }
