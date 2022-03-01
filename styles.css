@@ -14,6 +14,20 @@ h1 {
   padding-bottom: 25px;
 }
 
+.btn.btn-primary.btn-lg{
+  background-color: white;
+  color: #2f6dba;
+}
+
+.btn.btn-primary.btn-lg:hover{
+  background-color: #2f6dba;
+  color: white;
+}
+
+.card.h-100.text-center:hover{
+  transform: scale(1.05);
+}
+
 /* From login template */
 .divider:after,
 .divider:before {
@@ -25,6 +39,11 @@ h1 {
 .h-custom {
   height: calc(100% - 73px);
 }
+
+.form-label{
+  color: #2f6dba
+}
+
 @media (max-width: 450px) {
   .h-custom {
     height: 100%;
