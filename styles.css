@@ -14,7 +14,8 @@ h1 {
   padding-bottom: 25px;
 }
 
-.btn.btn-primary.btn-lg{
+/* all the blue buttons */
+.btn.btn-primary.btn-lg{ 
   background-color: white;
   color: #2f6dba;
 }
@@ -24,6 +25,7 @@ h1 {
   color: white;
 }
 
+/*Cards with resturaunt info*/
 .card.h-100.text-center:hover{
   transform: scale(1.05);
 }
