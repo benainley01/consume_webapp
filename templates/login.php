@@ -115,6 +115,7 @@
     <!-- Page Content -->
 
     <div class="container">
+      <?= $error_msg ?>
       <section id="section-basic-example">
         <!-- <h1>Signup</h1> -->
           <div class="bg-white border rounded-5">
