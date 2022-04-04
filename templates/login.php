@@ -1,5 +1,8 @@
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
+<?php
+  $error_msg = "";
+?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -84,13 +87,17 @@
                   alt="consume web logo"
               /></a>
             </li>
-            <li><a href="index.html" class="nav-link px-2">Home</a></li>
+            <li><a href="?command=home" class="nav-link px-2">Home</a></li>
             <li>
               <a href="myreviews.html" class="nav-link px-2">My Reviews</a>
             </li>
             <li><a href="#" class="nav-link px-2">Account</a></li>
-            <li><a href="login.html" class="nav-link px-2">Login</a></li>
-            <li><a href="#" class="nav-link px-2">Logout</a></li>
+            <?php if (!isset($_SESSION["name"])): ?>
+            <li><a href="?command=login" class="nav-link px-2">Login</a></li>
+            <?php endif; ?>
+            <?php if (isset($_SESSION["name"])): ?>
+              <li><a href="?command=logout" class="nav-link px-2">Logout</a></li>
+            <?php endif; ?>
           </ul>
 
           <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -102,13 +109,19 @@
             />
           </form>
 
-          <img
+          <!-- <img
             src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
             alt="profile picture"
             width="38"
             height="38"
             class="profile rounded-circle"
-          />
+          /> -->
+
+          <?php
+            if (isset($_SESSION["name"])){
+              echo $_SESSION["name"];
+            }
+          ?>
         </div>
       </div>
     </header>
@@ -123,11 +136,14 @@
               <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center  h-100">
                   <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1 my-lg-5 py-lg-5">
-                    <h1>Signup</h1>
+                    <!-- <h1>Signup</h1> -->
                     
                   </div>
                   <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1 my-lg-5 py-lg-5">
-                    <h1>Login</h1>
+                    <h1>Login/Signup</h1>
+                    <h6 style="color: #2f6dba;">If you are new to consume, enter the information that you will use to login next time. <br><br>
+                      If you have signed up before, enter the information that you used last time. 
+                    </h6>
 
                     <form action="?command=login" method="post">
                        <!-- Name input -->

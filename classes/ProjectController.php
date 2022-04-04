@@ -36,12 +36,13 @@ class ProjectController {
         }
     }
     private function home(){
-        header("Location: templates/home.php");
+        include("templates/home.php");
     }
 
     private function destroySessions() {
         session_destroy();
-        header("templates/login.php");
+        // include("templates/login.php");
+        header("Refresh:0");
     }
 
     private function login() {
@@ -78,7 +79,7 @@ class ProjectController {
                         $_SESSION["name"] = $data[0]["name"];
                         $_SESSION["email"] = $data[0]["email"];
                         $_SESSION["password"] = $data[0]["password"];
-                        header("Location: ?command=transactions");
+                        header("Location: ?command=home");
                     }
                 }    
             }

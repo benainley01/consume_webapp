@@ -8,10 +8,14 @@
   object-fit: cover;
 }
 
-h1 {
+h1{
   color: #2f6dba;
   padding-top: 25px;
   padding-bottom: 25px;
+}
+
+h5{
+  color: #2f6dba;
 }
 
 /* all the blue buttons */
@@ -41,7 +45,7 @@ h1 {
 }
 
 .form-label{
-  color: #2f6dba
+  color: #2f6dba;
 }
 
 @media (max-width: 450px) {
