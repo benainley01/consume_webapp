@@ -124,47 +124,19 @@
                 <div class="row d-flex justify-content-center  h-100">
                   <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1 my-lg-5 py-lg-5">
                     <h1>Signup</h1>
-                    <form action="?command=signup" method="post">
-                      <!-- Name input -->
-                      <div class="form-outline mb-4">
-                        <h5>
-                          <label class="form-label" for="form3Example3">Name </label>
-                        </h5>
-                        <input type="name" class="form-control" id="name" name="name" placeholder="Enter your name"/>
-                      </div>
-                      <!-- Email input -->
-                      <div class="form-outline mb-4">
-                        <h5>
-                          <label class="form-label" for="form3Example3"
-                          >Email address</label
-                          >
-                        </h5>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter a valid email address"/>
-                      </div>
-
-                      <!-- Password input -->
-                      <div class="form-outline mb-3">
-                        <h5>
-                          <label class="form-label" for="form3Example4">Password</label>
-                        </h5>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"/>
-                      </div>
-
-                      <div class="text-center text-lg-start mt-4 pt-2" id = "loginButton">
-                        <button
-                          type="submit"
-                          class="btn btn-primary btn-lg"
-                          style="padding-left: 2.5rem; padding-right: 2.5rem"
-                        >
-                          Signup
-                        </button>
-                      </div>
-                    </form>
+                    
                   </div>
                   <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1 my-lg-5 py-lg-5">
                     <h1>Login</h1>
 
                     <form action="?command=login" method="post">
+                       <!-- Name input -->
+                       <div class="form-outline mb-4">
+                        <h5>
+                          <label class="form-label" for="form3Example3">Name </label>
+                        </h5>
+                        <input type="name" class="form-control" id="name" name="name" placeholder="Enter your name"/>
+                      </div>
                       <!-- Email input -->
                       <div class="form-outline mb-4">
                         <h5>

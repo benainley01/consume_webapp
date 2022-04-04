@@ -36,48 +36,18 @@ class ProjectController {
         }
     }
     private function home(){
-        header("Location: index.php");
+        header("Location: templates/home.php");
     }
 
     private function destroySessions() {
         session_destroy();
         header("templates/login.php");
     }
-    private function signup(){
-        $error_msg = "";
-        echo $_POST["email"];
-        if (isset($_POST["email"])){
-            if(($_POST["email"] == "") or ($_POST["name"]=="") or ($_POST["password"] == "")){
-                $error_msg = "<div class='alert alert-danger'>No input was provided in one or more fields. Try again</div>";
-            } else {
-                $data = $this->db->query("select * from project_user where email = ?;", "s", $_POST["email"]);
-                if($data === false){
-                    echo "hi";
-                    $insert = $this->db->query("insert into project_user (name, email, password) values (?, ?, ?);", 
-                            "sss", $_POST["name"], $_POST["email"], 
-                            password_hash($_POST["password"], PASSWORD_DEFAULT));
-                    if ($insert === false) {
-                        $error_msg = "<div class='alert alert-danger'>Error inserting user</div>";
-                    } else {
-                        $_SESSION["name"] = $data[0]["name"];
-                        $_SESSION["email"] = $data[0]["email"];
-                        $_SESSION["password"] = $data[0]["password"];
-                        header("Location: ?command=home");
-                    }
-                } else {
-                    $error_msg = "<div class='alert alert-danger'>User with that email already exists</div>";
-                }
-                
-
-            }
-        }
-        // include("templates/login.php");
-    }
 
     private function login() {
         $error_msg = "";
         if (isset($_POST["email"])) {
-            if (($_POST["email"] == "") or ($_POST["password"] == "")) {
+            if (($_POST["email"] == "") or ($_POST["name"]=="") or ($_POST["password"] == "")) {
                 $error_msg = "<div class='alert alert-danger'>No input was provided in one or more fields. Try again</div>";
             } else{
                 $data = $this->db->query("select * from project_user where email = ?;", "s", $_POST["email"]);
@@ -93,9 +63,27 @@ class ProjectController {
                     } else {
                         $error_msg = "<div class='alert alert-danger'>Wrong password.</div>";
                     }
-                } 
+                } else { // empty, no user found
+                    // TODO: input validation
+                    // Note: never store clear-text passwords in the database
+                    //       PHP provides password_hash() and password_verify()
+                    //       to provide password verification
+
+                    $insert = $this->db->query("insert into project_user (name, email, password) values (?, ?, ?);", 
+                            "sss", $_POST["name"], $_POST["email"], 
+                            password_hash($_POST["password"], PASSWORD_DEFAULT));
+                    if ($insert === false) {
+                        $error_msg = "<div class='alert alert-danger'>Error inserting user</div>";
+                    } else {
+                        $_SESSION["name"] = $data[0]["name"];
+                        $_SESSION["email"] = $data[0]["email"];
+                        $_SESSION["password"] = $data[0]["password"];
+                        header("Location: ?command=transactions");
+                    }
+                }    
             }
         }
+        // echo $_SESSION["name"];
         include("templates/login.php");
     }
 
@@ -155,6 +143,6 @@ class ProjectController {
             $categoryInfo = $data;
         } 
 
-        include("templates/transactions.php");
+        include("templates/home.php");
     }
 }
