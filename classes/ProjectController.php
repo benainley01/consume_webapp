@@ -24,6 +24,12 @@ class ProjectController {
             case "home":
                 $this->home();
                 break;
+            case "addRestaurantPage":
+                $this->addRestaurantPage();
+                break;
+            case "addRestaurant":
+                $this->addRestaurant();
+                break;
             case "logout":
                 $this->destroySessions();
                 break;
@@ -87,31 +93,31 @@ class ProjectController {
         // echo $_SESSION["name"];
         include("templates/login.php");
     }
-
-    //fields: name, category (text or pre-defined select), date, amount, type (credit(deposit)/debit(withdrawal))
-    private function addTransaction(){
+    private function addRestaurantPage(){
         $error_msg = "";
-        include("templates/addTransaction.php");
+        include("templates/add-restaurant.php");
     }
 
-    private function add(){
+    //fields: name, address, cuisine
+    private function addRestaurant(){
         $error_msg = "";
-        if (($_POST["transactionName"] == "") or ($_POST["category"]=="") or ($_POST["date"] == "") or ($_POST["amount"] == 0.00) or ($_POST["type"] == "")) {
+        if (($_POST["restaurantName"] == "") or ($_POST["restaurantName"] == "") or ($_POST["address"]=="") or ($_POST["cuisine"] == "")) {
             $error_msg = "<div class='alert alert-danger'>No input was provided in one or more fields. Try again</div>";
         } else{
-            if (($_POST["type"] == "credit" and $_POST["amount"] > 0) or ($_POST["type"] == "debit" and $_POST["amount"] < 0)){
-                $insert = $this->db->query("insert into hw5_transaction (user_id, name, category, t_date, amount, type) values (?, ?, ?, ?, ?, ?);", 
-                "isssds", $_SESSION["userid"],$_POST["transactionName"], $_POST["category"], $_POST["date"], $_POST["amount"], $_POST["type"]);
-                if ($insert === false) {
-                    $error_msg = "<div class='alert alert-danger'>Error adding transaction</div>";
+            $data = $this->db->query("select * from project_restaurant where address = ?;", "s", $_POST["address"]);
+            if ($data == false){
+                $insert = $this->db->query("insert into project_restaurant (name, address, cuisine) values (?, ?, ?);",
+                "sss", $_POST["restaurantName"], $_POST["address"], $_POST["cuisine"]);
+                if ($insert = false){
+                    $error_msg = "<div class='alert alert-danger'>Error adding restaurant</div>";
                 } else {
-                    header("Location: ?command=transactions");
+                    header("Location: ?command=home");
                 }
-            } else{
-                $error_msg = "<div class='alert alert-danger'>You must enter a positive number for credit and a negative number for debit.</div>";
+            } else {
+                $error_msg = "<div class='alert alert-danger'>Error adding restaurant at that address</div>";
             }
         }
-        include("templates/addTransaction.php");
+        include("templates/add-restaurant.php");
     }
 
     private function transactions() {

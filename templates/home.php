@@ -88,10 +88,11 @@
                   alt="consume web logo"
               /></a>
             </li>
-            <li><a href="index.html" class="nav-link px-2">Home</a></li>
+            <li><a href="home.php" class="nav-link px-2">Home</a></li>
             <li>
               <a href="myreviews.html" class="nav-link px-2">My Reviews</a>
             </li>
+            <li><a href="?command=addRestaurantPage" class="nav-link px-2">Add Resturaunt</a></li>
             <li><a href="#" class="nav-link px-2">Account</a></li>
             <?php if (!isset($_SESSION["name"])): ?>
             <li><a href="?command=login" class="nav-link px-2">Login</a></li>
