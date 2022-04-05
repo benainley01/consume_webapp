@@ -36,6 +36,12 @@ class ProjectController {
             case "deleteReview":
                 $this->deleteReview();
                 break; 
+            case "getRestaurant":
+                $this->getRestaurant();
+                break;
+            case "addReview":
+                $this->addReview();
+                break;
             case "logout":
                 $this->destroySessions();
                 break;
@@ -152,36 +158,38 @@ class ProjectController {
         include("templates/add-restaurant.php");
     }
 
-    private function transactions() {
+    private function getRestaurant(){
         $error_msg = "";
-
-        //handling current balance
-        $balance = 0.00;
-        $transactions = array();
-        $categoryInfo = array();
-        $data = $this->db->query("select sum(amount) as balance from hw5_transaction where user_id = ?;", "i", $_SESSION["userid"]);
-        if ($data === false) {
-            $error_msg = "<div class='alert alert-danger'>Error getting balance.</div>";
-        } else if (!empty($data)) {
-            $balance = $data[0]["balance"];
-        } 
-
-        // handling transaction list 
-        $data = $this->db->query("select * from hw5_transaction where user_id = ? order by t_date desc;", "i", $_SESSION["userid"]);
-        if ($data === false) {
-            $error_msg = "<div class='alert alert-danger'>Error getting balance.</div>";
-        } else if (!empty($data)) {
-            $transactions = $data;
-        } 
-
-        //handling transaction by category 
-        $data = $this->db->query("select category, sum(amount) as balance from hw5_transaction where user_id = ? group by category;", "i", $_SESSION["userid"]);
-        if ($data === false) {
-            $error_msg = "<div class='alert alert-danger'>Error getting balance.</div>";
-        } else if (!empty($data)) {
-            $categoryInfo = $data;
-        } 
-
-        include("templates/home.php");
+        if(isset($_POST["getRestaurant"])){
+            $data = $this->db->query("select * from project_restaurant where restaurantid = ?;", "s", $_POST["getRestaurant"]);
+            if ($_POST["getRestaurant"] == ""){
+                $error_msg = "<div class='alert alert-danger'>Error getting restaurant</div>";
+            }
+        } else {
+            $data = $this->db->query("select * from project_restaurant where restaurantid = ?;", "s", $_GET["getRestaurant"]);
+        }
+        include("templates/getRestaurant.php");
     }
+
+    private function addReview(){
+        $error_msg = "";
+        if(($_POST["restaurantReview"]) == "" or ($_POST["flexRadioDefault"]) == 0){
+            $error_msg = "<div class='alert alert-danger'>At least one field was left blank</div>";
+        }else{
+            $insert = $this->db->query("insert into project_review (rating, text, userid, restaurantid) values (?, ?, ?, ?);",
+            "ssss", $_POST["flexRadioDefault"], $_POST["restaurantReview"], $_SESSION["userid"], $_POST["getRestaurant"]);
+            if ($insert = false){
+                $error_msg = "<div class='alert alert-danger'>Error adding restaurant</div>";
+            } else {
+                header("Location: ?command=getRestaurant");
+            }
+        }
+        // include("templates/getRestaurant.php");
+        // header("Location: ?command=getRestaurant");
+        $id = $_POST["getRestaurant"];
+        header("Location: ?command=home");
+        // header("Location: ?command=getRestaurant/?getRestaurant= $id");
+        
+    }
+
 }
