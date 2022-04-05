@@ -33,6 +33,12 @@ class ProjectController {
             case "myReviews":
                 $this->myReviews();
                 break; 
+            case "restaurantsJSON":
+                $this->restaurantsJSON();
+                break;
+            case "editReview":
+                $this->editReview();
+                break;
             case "deleteReview":
                 $this->deleteReview();
                 break; 
@@ -80,6 +86,22 @@ class ProjectController {
             $myReviews = $data;
         }
         include("templates/myreviews.php");
+    }
+
+    private function restaurantsJSON(){
+        $restaurantsJSON;
+        $data = $this->db->query("SELECT name, address, cuisine, website from project_restaurant");
+        $restaurantsJSON = json_encode($data, JSON_PRETTY_PRINT);
+        echo $restaurantsJSON;
+    }
+
+    private function editReview(){
+        $data = $this->db->query("UPDATE project_review set rating = ?, text = ? WHERE project_review.reviewid = ?;", "isi", $_POST["flexRadioDefault"], $_POST["editReviewText"], $_POST["editReviewID"]);
+        if ($data === false){
+            $error_msg = "<div class='alert alert-danger'>Error deleting your review.</div>";
+        } else{
+            header("Location: ?command=myReviews");
+        }
     }
 
     private function deleteReview(){

@@ -29,10 +29,11 @@ h5{
   color: white;
 }
 
-/*Cards with resturaunt info*/
-.card.h-100.text-center:hover{
+/* Cards with resturaunt info */
+/* .card.h-100.text-center:hover{
   transform: scale(1.05);
-}
+} */
+/*commented out because it was messing with the modal for your reviews */
 
 #loginButton, #registerLink{
   display: flex;

@@ -133,34 +133,95 @@
                         />
                         <div class="card-body">
                             <h5 class="card-title"><?= $review["name"]; ?></h5>
-                            <p class="card-text">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
+                            <p>My Rating: <?= $review["rating"]; ?> stars 
+                            <br>
+                            <?= $review["text"]; ?>
                             </p>
-                            <p><?= $review["text"]; ?></p>
 
                             <div class="card-buttons btn-toolbar justify-content-center">
-                                <button href="#link" class="btn btn-outline-success m-1">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-success m-1" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $review["reviewid"]; ?>">
                                 Edit
                                 </button>
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal<?= $review["reviewid"]; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Edit Review</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+
+                                      <div class="modal-body">
+                                        <!-- Submit review -->
+                                        <form action="?command=editReview" method="post">
+                                            <div class="mb-3">
+                                                <label for="editReviewText" class="form-label">Review</label>
+                                                <textarea class="form-control" id="editReviewText" name="editReviewText" rows="3"required><?= $review["text"]; ?></textarea>
+                                            </div>
+
+                                            <!-- Stars -->
+                                            <h4>How many stars? </h1>
+                                            <div class="form-check-inline">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    1
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="2">
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    2
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="3">
+                                                <label class="form-check-label" for="flexRadioDefault3">
+                                                    3
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" value="4">
+                                                <label class="form-check-label" for="flexRadioDefault4">
+                                                    4
+                                                </label>
+                                            </div>
+                                            <div class="form-check-inline">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" value="5" checked>
+                                                <label class="form-check-label" for="flexRadioDefault5">
+                                                    5
+                                                </label>
+                                            </div>    
+                                            <br>
+                                            <input 
+                                                type="hidden" 
+                                                class="form-control" 
+                                                id="editReviewID" 
+                                                name="editReviewID" 
+                                                value="<?= $review["reviewid"]; ?>"
+                                            />       
+                                            <br>   
+                                            <div class="text-center">                
+                                                <button type="submit" class="btn btn-outline-success">Submit</button>
+                                            </div>
+                                        </form>
+                                      </div>
+
+                                      <div class="modal-footer"> 
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>          
+                                </div> 
+
+
+                                <!-- Form for processing deleting a review -->
                                 <form action="?command=deleteReview" method="post">
                                     <input type="hidden" class="form-control" id="deleteReview" name="deleteReview" value="<?= $review["reviewid"]; ?>"/>          
                                     <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
                                 </form>
-                                
-                                <!-- <a href="#link" class="btn btn-outline-primary" role="button">
-                                Edit Review
-                                </a>
-                                <a
-                                href="?command=deleteReview"
-                                class="btn btn-outline-danger"
-                                role="button"
-                                >
-                                Delete Review
-                                </a> -->
 
                             </div>
                         </div>
