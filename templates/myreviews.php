@@ -133,14 +133,10 @@
                         />
                         <div class="card-body">
                             <h5 class="card-title"><?= $review["name"]; ?></h5>
-                            <p class="card-text">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
+                            <p>My Rating: <?= $review["rating"]; ?> stars 
+                            <br>
+                            <?= $review["text"]; ?>
                             </p>
-                            <p><?= $review["text"]; ?></p>
 
                             <div class="card-buttons btn-toolbar justify-content-center">
                                 <!-- Button trigger modal -->
