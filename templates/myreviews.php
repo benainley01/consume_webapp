@@ -1,8 +1,6 @@
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
 <html lang="en">
-  <!-- Link -->
-  <!-- https://cs4640.cs.virginia.edu/bsa2up/sprint2/ -->
   <head>
     <meta charset="UTF-8" />
 
@@ -54,7 +52,7 @@
   </head>
 
   <body>
-    <!-- header and navbar -->
+<!-- header and navbar -->
     <header class="p-3 mb-3 border-bottom">
       <div class="container">
         <div
@@ -87,10 +85,9 @@
                   height="70"
                   alt="consume web logo"
               /></a>
-            </li>
             <li><a href="?command=home" class="nav-link px-2">Home</a></li>
             <li>
-              <a href="?command=myReviews" class="nav-link px-2">My Reviews</a>
+            <a href="?command=myReviews" class="nav-link px-2">My Reviews</a>
             </li>
             <li><a href="?command=addRestaurantPage" class="nav-link px-2">Add Resturaunt</a></li>
             <li><a href="#" class="nav-link px-2">Account</a></li>
@@ -116,59 +113,69 @@
               echo $_SESSION["name"];
             }
           ?>
+
         </div>
       </div>
     </header>
-<!-- Page Content -->
-    <div class="container">
-      <h1>Consume</h1>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php foreach($restaurants as $restaurant): ?>
-          <div class="col">
-            <div class="card h-100 text-center">
-              <img
-                src="https://s3-media0.fl.yelpcdn.com/bphoto/eWnMZOYJ2O8SAU6CyAWvSg/o.jpg"
-                class="card-img-top"
-                alt="restaurant picture"
-                height="180"
-              />
-              <div class="card-body">
-                <h5 class="card-title"><?= $restaurant["name"]; ?></h5>
-                <p class = "card-text">
-                  <?= $restaurant["address"]; ?>
-                </p>
-                <p class="card-text">
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                </p>
+    <!-- Page Content -->
 
-                <div class="card-buttons">
-                  <a href="#link" class="btn btn-outline-primary" role="button"
-                    >Reviews</a
-                  >
-                  <a
-                    href="<?= $restaurant["website"]; ?>"
-                    class="btn btn-outline-primary"
-                    role="button"
-                    target="_blank"
-                    >Website</a
-                  >
+    <div class="container">
+        <h1>Your Reviews</h1>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <?php foreach($myReviews as $review): ?>  
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <img
+                        src="https://s3-media0.fl.yelpcdn.com/bphoto/eWnMZOYJ2O8SAU6CyAWvSg/o.jpg"
+                        class="card-img-top"
+                        alt="restaurant picture"
+                        height="180"
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $review["name"]; ?></h5>
+                            <p class="card-text">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                            </p>
+                            <p><?= $review["text"]; ?></p>
+
+                            <div class="card-buttons btn-toolbar justify-content-center">
+                                <button href="#link" class="btn btn-outline-success m-1">
+                                Edit
+                                </button>
+                                <form action="?command=deleteReview" method="post">
+                                    <input type="hidden" class="form-control" id="deleteReview" name="deleteReview" value="<?= $review["reviewid"]; ?>"/>          
+                                    <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
+                                </form>
+                                
+                                <!-- <a href="#link" class="btn btn-outline-primary" role="button">
+                                Edit Review
+                                </a>
+                                <a
+                                href="?command=deleteReview"
+                                class="btn btn-outline-danger"
+                                role="button"
+                                >
+                                Delete Review
+                                </a> -->
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        <?php endforeach; ?>
-      </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 
 <!-- footer -->
     <div class="container">
       <footer
         class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top"
       >
-        <p class="col-md-4 mb-0 text-muted">© 2022, Consume</p>
+        <p class="col-md-4 mb-0 text-muted">©2022, Consume</p>
 
         <a
           href="/"
@@ -186,17 +193,18 @@
         </a>
 
         <ul class="d-flex nav col-md-4 justify-content-end">
-          <li><a href="?command=home" class="nav-link px-2">Home</a></li>
-          <li>
-            <a href="?command=myReviews" class="nav-link px-2">My Reviews</a>
-          </li>
-          <li><a href="#" class="nav-link px-2">Account</a></li>
-          <?php if (!isset($_SESSION["name"])): ?>
-          <li><a href="?command=login" class="nav-link px-2">Login</a></li>
-          <?php endif; ?>
-          <?php if (isset($_SESSION["name"])): ?>
-            <li><a href="?command=logout" class="nav-link px-2">Logout</a></li>
-          <?php endif; ?>
+            <li><a href="?command=home" class="nav-link px-2">Home</a></li>
+            <li>
+                <a href="?command=myReviews" class="nav-link px-2">My Reviews</a>
+            </li>
+            <li><a href="?command=addRestaurantPage" class="nav-link px-2">Add Resturaunt</a></li>
+            <li><a href="#" class="nav-link px-2">Account</a></li>
+            <?php if (!isset($_SESSION["name"])): ?>
+            <li><a href="?command=login" class="nav-link px-2">Login</a></li>
+            <?php endif; ?>
+            <?php if (isset($_SESSION["name"])): ?>
+                <li><a href="?command=logout" class="nav-link px-2">Logout</a></li>
+            <?php endif; ?>
         </ul>
       </footer>
     </div>

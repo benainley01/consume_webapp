@@ -30,6 +30,12 @@ class ProjectController {
             case "addRestaurant":
                 $this->addRestaurant();
                 break;
+            case "myReviews":
+                $this->myReviews();
+                break; 
+            case "deleteReview":
+                $this->deleteReview();
+                break; 
             case "logout":
                 $this->destroySessions();
                 break;
@@ -52,10 +58,29 @@ class ProjectController {
         include("templates/home.php");
     }
 
+    private function myReviews(){
+        $myReviews = [];
+        $data = $this->db->query("SELECT * from project_restaurant NATURAL JOIN project_review WHERE project_review.userid = 1;");
+        if ($data === false){
+            $error_msg = "<div class='alert alert-danger'>Error getting your reviews.</div>";
+        } else if(!empty($data)){
+            $myReviews = $data;
+        }
+        include("templates/myreviews.php");
+    }
+
+    private function deleteReview(){
+        $data = $this->db->query("delete from project_review where project_review.reviewid = ?;", "i", $_POST["deleteReview"]);
+        if ($data === false){
+            $error_msg = "<div class='alert alert-danger'>Error deleting your review.</div>";
+        } else{
+            header("Location: ?command=myReviews");
+        }
+    }
+
     private function destroySessions() {
         session_destroy();
-        // include("templates/login.php");
-        header("Refresh:0");
+        include("templates/login.php");
     }
 
     private function login() {
