@@ -139,10 +139,12 @@
                           <label for="cuisine" class="form-label">Cuisine Type</label>
                           <input type="text" class="form-control" id="cuisine" name="cuisine"/>
                       </div>
+
                       <div class="mb-3">
                           <label for="website" class="form-label">Website</label>
                           <input type="text" class="form-control" id="website" name="website"/>
                       </div>
+                      
                       <div class="text-center">                
                           <button type="submit" class="btn btn-primary">Submit</button>
                       </div>
