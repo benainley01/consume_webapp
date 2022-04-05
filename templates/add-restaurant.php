@@ -88,7 +88,7 @@
                   alt="consume web logo"
               /></a>
             </li>
-            <li><a href="home.php" class="nav-link px-2">Home</a></li>
+            <li><a href="?command=home" class="nav-link px-2">Home</a></li>
             <li>
               <a href="myreviews.html" class="nav-link px-2">My Reviews</a>
             </li>
@@ -120,29 +120,35 @@
       </div>
     </header>
         <!-- Page Content -->
-        <div class="row col-xs-8">
-            <div class="h-100 p-5 bg-light border rounded-3">
-                <h2>Add Restaurant</h2>
-                <!-- user_id, name, category, t_date, amount, type -->
-                <?= $error_msg ?>
-                <form action="?command=addRestaurant" method="post">
-                    <div class="mb-3">
-                        <label for="restaurantName" class="form-label">Restaurant Name</label>
-                        <input type="text" class="form-control" id="restaurantName" name="restaurantName"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="cuisine" class="form-label">Cuisine Type</label>
-                        <input type="text" class="form-control" id="cuisine" name="cuisine"/>
-                    </div>
-                    <div class="text-center">                
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
+        <div class = "container"> 
+          <div class="row col-xs-8">
+              <div class="h-100 p-5 bg-light border rounded-3">
+                  <h2>Add Restaurant</h2>
+                  <!-- user_id, name, category, t_date, amount, type -->
+                  <?= $error_msg ?>
+                  <form action="?command=addRestaurant" method="post">
+                      <div class="mb-3">
+                          <label for="restaurantName" class="form-label">Restaurant Name</label>
+                          <input type="text" class="form-control" id="restaurantName" name="restaurantName"/>
+                      </div>
+                      <div class="mb-3">
+                          <label for="address" class="form-label">Address</label>
+                          <input type="text" class="form-control" id="address" name="address"/>
+                      </div>
+                      <div class="mb-3">
+                          <label for="cuisine" class="form-label">Cuisine Type</label>
+                          <input type="text" class="form-control" id="cuisine" name="cuisine"/>
+                      </div>
+                      <div class="mb-3">
+                          <label for="website" class="form-label">Website</label>
+                          <input type="text" class="form-control" id="website" name="website"/>
+                      </div>
+                      <div class="text-center">                
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
         </div>
 <!-- footer -->
     <div class="container">

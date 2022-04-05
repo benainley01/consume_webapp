@@ -42,6 +42,13 @@ class ProjectController {
         }
     }
     private function home(){
+        $restaurants = [];
+        $data = $this->db->query("select * from project_restaurant");
+        if ($data === false){
+            $error_msg = "<div class='alert alert-danger'>Error getting all restaurants.</div>";
+        } else if(!empty($data)){
+            $restaurants = $data;
+        }
         include("templates/home.php");
     }
 
@@ -101,13 +108,13 @@ class ProjectController {
     //fields: name, address, cuisine
     private function addRestaurant(){
         $error_msg = "";
-        if (($_POST["restaurantName"] == "") or ($_POST["restaurantName"] == "") or ($_POST["address"]=="") or ($_POST["cuisine"] == "")) {
+        if (($_POST["restaurantName"] == "") or ($_POST["restaurantName"] == "") or ($_POST["address"]=="") or ($_POST["cuisine"] == "") or ($_POST["website"] == "")) {
             $error_msg = "<div class='alert alert-danger'>No input was provided in one or more fields. Try again</div>";
         } else{
             $data = $this->db->query("select * from project_restaurant where address = ?;", "s", $_POST["address"]);
             if ($data == false){
-                $insert = $this->db->query("insert into project_restaurant (name, address, cuisine) values (?, ?, ?);",
-                "sss", $_POST["restaurantName"], $_POST["address"], $_POST["cuisine"]);
+                $insert = $this->db->query("insert into project_restaurant (name, address, cuisine, website) values (?, ?, ?, ?);",
+                "ssss", $_POST["restaurantName"], $_POST["address"], $_POST["cuisine"], $_POST["website"]);
                 if ($insert = false){
                     $error_msg = "<div class='alert alert-danger'>Error adding restaurant</div>";
                 } else {

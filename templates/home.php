@@ -88,7 +88,7 @@
                   alt="consume web logo"
               /></a>
             </li>
-            <li><a href="home.php" class="nav-link px-2">Home</a></li>
+            <li><a href="?command=home" class="nav-link px-2">Home</a></li>
             <li>
               <a href="myreviews.html" class="nav-link px-2">My Reviews</a>
             </li>
@@ -123,205 +123,46 @@
     <div class="container">
       <h1>Consume</h1>
       <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-          <div class="card h-100 text-center">
-            <img
-              src="https://s3-media0.fl.yelpcdn.com/bphoto/oA1s7yNm7E8Vv6iEW5Akmg/o.jpg"
-              class="card-img-top"
-              alt="restaurant picture"
-              height="180"
-            />
-            <div class="card-body">
-              <h5 class="card-title">The Virginian</h5>
-              <p class="card-text">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-              </p>
+        <?php foreach($restaurants as $restaurant): ?>
+          <div class="col">
+            <div class="card h-100 text-center">
+              <img
+                src="https://s3-media0.fl.yelpcdn.com/bphoto/eWnMZOYJ2O8SAU6CyAWvSg/o.jpg"
+                class="card-img-top"
+                alt="restaurant picture"
+                height="180"
+              />
+              <div class="card-body">
+                <h5 class="card-title"><?= $restaurant["name"]; ?></h5>
+                <p class = "card-text">
+                  <?= $restaurant["address"]; ?>
+                </p>
+                <p class="card-text">
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                </p>
 
-              <div class="card-buttons">
-                <a href="#link" class="btn btn-outline-primary" role="button"
-                  >Reviews</a
-                >
-                <a
-                  href="https://www.thevirginiancville.com/"
-                  class="btn btn-outline-primary"
-                  role="button"
-                  >Website</a
-                >
+                <div class="card-buttons">
+                  <a href="#link" class="btn btn-outline-primary" role="button"
+                    >Reviews</a
+                  >
+                  <a
+                    href="<?= $restaurant["website"]; ?>"
+                    class="btn btn-outline-primary"
+                    role="button"
+                    target="_blank"
+                    >Website</a
+                  >
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="col">
-          <div class="card h-100 text-center">
-            <img
-              src="https://s3-media0.fl.yelpcdn.com/bphoto/eWnMZOYJ2O8SAU6CyAWvSg/o.jpg"
-              class="card-img-top"
-              alt="restaurant picture"
-              height="180"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Kuma</h5>
-              <p class="card-text">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-              </p>
-
-              <div class="card-buttons">
-                <a href="#link" class="btn btn-outline-primary" role="button"
-                  >Reviews</a
-                >
-                <a
-                  href="http://places.singleplatform.com/kuma-sushi-noodles--bar/menu"
-                  class="btn btn-outline-primary"
-                  role="button"
-                  >Website</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card h-100 text-center">
-            <img
-              src="https://s3-media0.fl.yelpcdn.com/bphoto/tOwuAYhoJjW26pd-FGaNow/o.jpg"
-              class="card-img-top"
-              alt="restaurant picture"
-              height="180"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Asado</h5>
-              <p class="card-text">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-              </p>
-
-              <div class="card-buttons">
-                <a href="#link" class="btn btn-outline-primary" role="button"
-                  >Reviews</a
-                >
-                <a
-                  href="https://asadocville.com/"
-                  class="btn btn-outline-primary"
-                  role="button"
-                  >Website</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card h-100 text-center">
-            <img
-              src="https://s3-media0.fl.yelpcdn.com/bphoto/R4lUJn3RlsHOredMjw7-uw/o.jpg"
-              class="card-img-top"
-              alt="restaurant picture"
-              height="180"
-            />
-            <div class="card-body">
-              <h5 class="card-title">The White Spot</h5>
-              <p class="card-text">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-              </p>
-
-              <div class="card-buttons">
-                <a href="#link" class="btn btn-outline-primary" role="button"
-                  >Reviews</a
-                >
-                <a
-                  href="https://www.thespotuva.com/"
-                  class="btn btn-outline-primary"
-                  role="button"
-                  >Website</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card h-100 text-center">
-            <img
-              src="https://s3-media0.fl.yelpcdn.com/bphoto/Z7Dxyqr7wJbclIExh4G_xQ/o.jpg"
-              class="card-img-top"
-              alt="restaurant picture"
-              height="180"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Crozet Pizza at Buddhist Bar</h5>
-              <p class="card-text">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-              </p>
-
-              <div class="card-buttons">
-                <a href="#link" class="btn btn-outline-primary" role="button"
-                  >Reviews</a
-                >
-                <a
-                  href="https://www.crozetpizza.com/"
-                  class="btn btn-outline-primary"
-                  role="button"
-                  >Website</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card h-100 text-center">
-            <img
-              src="https://s3-media0.fl.yelpcdn.com/bphoto/QxCbu0kqtKSvJUMkRU_4XA/o.jpg"
-              class="card-img-top"
-              alt="restaurant picture"
-              height="180"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Auntie Anne's</h5>
-              <p class="card-text">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-              </p>
-
-              <div class="card-buttons">
-                <a href="#link" class="btn btn-outline-primary" role="button"
-                  >Reviews</a
-                >
-                <a
-                  href="https://locations.auntieannes.com/va/charlottesville"
-                  class="btn btn-outline-primary"
-                  role="button"
-                  >Website</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
+        <?php endforeach; ?>
       </div>
-    </div>
+
 <!-- footer -->
     <div class="container">
       <footer
