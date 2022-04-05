@@ -51,6 +51,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    
   </head>
 
   <body>
@@ -121,51 +122,86 @@
     </header>
 <!-- Page Content -->
     <div class="container">
-      <h1>Consume</h1>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php foreach($restaurants as $restaurant): ?>
-          <div class="col">
-            <div class="card h-100 text-center">
-              <img
-                src="https://s3-media0.fl.yelpcdn.com/bphoto/eWnMZOYJ2O8SAU6CyAWvSg/o.jpg"
-                class="card-img-top"
-                alt="restaurant picture"
-                height="180"
-              />
-              <div class="card-body">
-                <h5 class="card-title"><?= $restaurant["name"]; ?></h5>
-                <p class = "card-text">
-                  <?= $restaurant["address"]; ?>
-                </p>
-                <p class="card-text">
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                </p>
-
-                <div class="card-buttons">
-                  <!-- <a href="#link" class="btn btn-outline-primary" role="button">Reviews</a> -->
-                  <form action="?command=getRestaurant" method="post">
-                    <input type="hidden" class="form-control" id="getRestaurant" name="getRestaurant" value="<?= $restaurant["restaurantid"]; ?>"/>          
-                    <button type="submit" class="btn btn-outline-primary">Reviews</button>
-                    <a
-                      href="<?= $restaurant["website"]; ?>"
-                      class="btn btn-outline-primary"
-                      role="button"
-                      target="_blank"
-                      >
-                      Website
-                    </a>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        <?php endforeach; ?>
+      <div class="row row-cols-1 g-4">
+        <h1><?= $data[0]["name"] ?></h1>
       </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <h4><?= $data[0]["address"] ?></h4>
+      </div>
+      <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Write Review
+        </button>
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Write Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Submit review -->
+                <form action="?command=addReview" method="post">
+                    <div class="mb-3">
+                        <label for="restaurantReview" class="form-label">Review</label>
+                        <textarea class="form-control" id="restaurantReview" name="restaurantReview" rows="3" required></textarea>
+                    </div>
+
+                    <!-- Stars -->
+                    <h4>How many stars? </h1>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            1
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            2
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="3">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            3
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" value="4">
+                        <label class="form-check-label" for="flexRadioDefault4">
+                            4
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" value="5" checked>
+                        <label class="form-check-label" for="flexRadioDefault5">
+                            5
+                        </label>
+                    </div>    
+                    <br>
+                    <input 
+                        type="hidden" 
+                        class="form-control" 
+                        id="getRestaurant" 
+                        name="getRestaurant" 
+                        value="<?= $data[0]["restaurantid"]; ?>"
+                    />          
+                    <div class="text-center">                
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Submit Review</button> -->
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
 <!-- footer -->
     <div class="container">
       <footer
@@ -214,5 +250,10 @@
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+        })
+    </script>
   </body>
 </html>
