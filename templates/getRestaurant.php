@@ -128,6 +128,9 @@
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <h4><?= $data[0]["address"] ?></h4>
       </div>
+      <div class = "media pb-4">
+          <h5> Average Star Rating: <?= $avg; ?> </h5>
+      </div>
       <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Write Review
@@ -135,7 +138,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+          <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Write Review</h5>
@@ -199,7 +202,29 @@
                 <!-- <button type="button" class="btn btn-primary">Submit Review</button> -->
             </div>
             </div>
+          </div>
         </div>
+        <div class="container pt-5">
+                   
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Review</th>
+              <th scope="col">Rating</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <?php foreach($reviews as $review): ?>
+            <tr>
+              <td><?=$review["name"]?></td>
+              <td><?=$review["text"]?></td>
+              <td><?=$review["rating"]?></td>
+            </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
         </div>
     </div>
 <!-- footer -->

@@ -137,12 +137,20 @@
                 <p class = "card-text">
                   <?= $restaurant["address"]; ?>
                 </p>
-                <p class="card-text">
+                <!-- <p class="card-text">
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star checked"></span>
                   <span class="fa fa-star"></span>
                   <span class="fa fa-star"></span>
+                </p> -->
+                <?php
+                $avg_rating = $this->db->query("SELECT AVG(project_review.rating) from project_restaurant NATURAL JOIN project_review WHERE restaurantid = ?;", "i", $restaurant["restaurantid"]);
+                $avg = round($avg_rating[0]["AVG(project_review.rating)"], 1);
+                ?>
+                <p class = "card-text">
+                  Average Star Rating: 
+                  <?= $avg; ?>
                 </p>
 
                 <div class="card-buttons">

@@ -56,10 +56,17 @@ class ProjectController {
     private function home(){
         $restaurants = [];
         $data = $this->db->query("select * from project_restaurant");
+        // SELECT AVG(project_review.rating)
+        // FROM project_review NATURAL JOIN project_restaurant
+
         if ($data === false){
             $error_msg = "<div class='alert alert-danger'>Error getting all restaurants.</div>";
         } else if(!empty($data)){
             $restaurants = $data;
+
+            // $avg_rating = $this->db->query("SELECT AVG(project_review.rating) from project_restaurant NATURAL JOIN project_review WHERE restaurantid = ?;", "i", $data["restaurantid"]);
+            // $avg = round($avg_rating[0]["AVG(project_review.rating)"], 1);
+            // print_r($avg);
         }
         include("templates/home.php");
     }
@@ -162,6 +169,19 @@ class ProjectController {
         $error_msg = "";
         if(isset($_POST["getRestaurant"])){
             $data = $this->db->query("select * from project_restaurant where restaurantid = ?;", "s", $_POST["getRestaurant"]);
+            $avg_rating = $this->db->query("SELECT AVG(project_review.rating) from project_restaurant NATURAL JOIN project_review WHERE restaurantid = ?;", "i", $_POST["getRestaurant"]);
+            $avg = round($avg_rating[0]["AVG(project_review.rating)"], 1);
+
+            // SELECT *
+            // FROM project_user INNER JOIN project_review 
+            // ON project_user.id = project_review.userid
+
+            $reviews = $this->db->query(
+                "SELECT name, text, rating
+                from project_user INNER JOIN project_review
+                ON project_user.id = project_review.userid
+                ;");
+
             if ($_POST["getRestaurant"] == ""){
                 $error_msg = "<div class='alert alert-danger'>Error getting restaurant</div>";
             }
@@ -176,18 +196,24 @@ class ProjectController {
         if(($_POST["restaurantReview"]) == "" or ($_POST["flexRadioDefault"]) == 0){
             $error_msg = "<div class='alert alert-danger'>At least one field was left blank</div>";
         }else{
-            $insert = $this->db->query("insert into project_review (rating, text, userid, restaurantid) values (?, ?, ?, ?);",
-            "ssss", $_POST["flexRadioDefault"], $_POST["restaurantReview"], $_SESSION["userid"], $_POST["getRestaurant"]);
-            if ($insert = false){
-                $error_msg = "<div class='alert alert-danger'>Error adding restaurant</div>";
+            $check = $this->db->query("SELECT * from project_review WHERE project_review.userid = ? and project_review.restaurantid = ?;", "ii", $_SESSION["userid"], $_POST["getRestaurant"]);
+            if(!$check){
+                $insert = $this->db->query("insert into project_review (rating, text, userid, restaurantid) values (?, ?, ?, ?);",
+                "ssii", $_POST["flexRadioDefault"], $_POST["restaurantReview"], $_SESSION["userid"], $_POST["getRestaurant"]);
+                if ($insert = false){
+                    $error_msg = "<div class='alert alert-danger'>Error adding restaurant</div>";
+                } else {
+                    header("Location: ?command=getRestaurant");
+                }
             } else {
-                header("Location: ?command=getRestaurant");
+                $error_msg = "<div class='alert alert-danger'>You already wrote a review</div>";
             }
+            header("Location: ?command=getRestaurant");
         }
         // include("templates/getRestaurant.php");
         // header("Location: ?command=getRestaurant");
         $id = $_POST["getRestaurant"];
-        header("Location: ?command=home");
+        header("Location: ?command=myReviews");
         // header("Location: ?command=getRestaurant/?getRestaurant= $id");
         
     }
