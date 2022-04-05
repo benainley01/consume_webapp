@@ -135,11 +135,11 @@
             <section class="w-100">
               <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center  h-100">
-                  <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1 my-lg-5 py-lg-5">
+                  <!-- <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1 my-lg-5 py-lg-5"> -->
                     <!-- <h1>Signup</h1> -->
                     
-                  </div>
-                  <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1 my-lg-5 py-lg-5">
+                  <!-- </div> -->
+                  <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1 my-lg-5 m-1">
                     <h1>Login/Signup</h1>
                     <h6 style="color: #2f6dba;">If you are new to consume, enter the information that you will use to login next time. <br><br>
                       If you have signed up before, enter the information that you used last time. 
@@ -211,19 +211,17 @@
         </a>
 
         <ul class="d-flex nav col-md-4 justify-content-end">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link px-2">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="myreviews.html" class="nav-link px-2">My Reviews</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2">Account</a>
-          </li>
-          <li class="nav-item">
-            <a href="login.html" class="nav-link px-2">Logout</a>
-          </li>
-          <li class="nav-item"><a href="#" class="nav-link px-2">Logout</a></li>
+            <li><a href="?command=home" class="nav-link px-2">Home</a></li>
+            <li>
+              <a href="myreviews.html" class="nav-link px-2">My Reviews</a>
+            </li>
+            <li><a href="#" class="nav-link px-2">Account</a></li>
+            <?php if (!isset($_SESSION["name"])): ?>
+            <li><a href="?command=login" class="nav-link px-2">Login</a></li>
+            <?php endif; ?>
+            <?php if (isset($_SESSION["name"])): ?>
+              <li><a href="?command=logout" class="nav-link px-2">Logout</a></li>
+            <?php endif; ?>
         </ul>
       </footer>
     </div>
