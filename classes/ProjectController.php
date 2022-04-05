@@ -59,6 +59,10 @@ class ProjectController {
                 $this->login();
         }
     }
+    
+    /*
+    home() displays the homepage for Consume. It querys all their restaurants and their data in our database to display on the homaepage. 
+    */
     private function home(){
         $restaurants = [];
         $data = $this->db->query("select * from project_restaurant");
@@ -77,6 +81,9 @@ class ProjectController {
         include("templates/home.php");
     }
 
+    /*
+    myReviews() function retrieves all the reviews that users have written for restaurants. 
+    */
     private function myReviews(){
         $myReviews = [];
         $data = $this->db->query("SELECT * from project_restaurant NATURAL JOIN project_review WHERE project_review.userid = ?;", "i", $_SESSION["userid"]);
@@ -88,6 +95,9 @@ class ProjectController {
         include("templates/myreviews.php");
     }
 
+    /*
+    restaurantsJSON() returns a JSON containing all restaurants in the database including names, addresses, cuisines, and websites
+    */
     private function restaurantsJSON(){
         $restaurantsJSON;
         $data = $this->db->query("SELECT name, address, cuisine, website from project_restaurant");
@@ -95,6 +105,9 @@ class ProjectController {
         echo $restaurantsJSON;
     }
 
+    /*
+    editReview() performs a SQL query to update a user's review based upon the POST data for editing a review
+    */
     private function editReview(){
         $data = $this->db->query("UPDATE project_review set rating = ?, text = ? WHERE project_review.reviewid = ?;", "isi", $_POST["flexRadioDefault"], $_POST["editReviewText"], $_POST["editReviewID"]);
         if ($data === false){
@@ -104,6 +117,9 @@ class ProjectController {
         }
     }
 
+    /*
+    deleteReview() will remove a review in the database
+    */
     private function deleteReview(){
         $data = $this->db->query("delete from project_review where project_review.reviewid = ?;", "i", $_POST["deleteReview"]);
         if ($data === false){
@@ -113,11 +129,20 @@ class ProjectController {
         }
     }
 
+    /*
+    destroySessions() destroys the current $_SESSION variable and is used to log users out 
+    */
     private function destroySessions() {
         session_destroy();
         include("templates/login.php");
     }
 
+    /*
+    login() allows users to create an account or login to their account. Error messages are displayed for situations 
+    where no input was provided in one or more fields, wrong password for the account, and if their password does not
+    reach our requirements. Password must contain minimum eight characters, at least one letter, one number and 
+    one special character.
+    */
     private function login() {
         $error_msg = "";
         if (isset($_POST["email"])) {
@@ -142,17 +167,25 @@ class ProjectController {
                     // Note: never store clear-text passwords in the database
                     //       PHP provides password_hash() and password_verify()
                     //       to provide password verification
-
-                    $insert = $this->db->query("insert into project_user (name, email, password) values (?, ?, ?);", 
+                    if(
+                        !preg_match("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$^", $_POST["password"])
+                    ){
+                        echo $error_msg;
+                        $error_msg = "<div class='alert alert-danger'>
+                        Password must contain minimum eight characters, at least one letter, one number and one special character
+                        </div>"; 
+                    } else {
+                        $insert = $this->db->query("insert into project_user (name, email, password) values (?, ?, ?);", 
                             "sss", $_POST["name"], $_POST["email"], 
                             password_hash($_POST["password"], PASSWORD_DEFAULT));
-                    if ($insert === false) {
-                        $error_msg = "<div class='alert alert-danger'>Error inserting user</div>";
-                    } else {
-                        $_SESSION["name"] = $data[0]["name"];
-                        $_SESSION["email"] = $data[0]["email"];
-                        $_SESSION["password"] = $data[0]["password"];
-                        header("Location: ?command=home");
+                        if ($insert === false) {
+                            $error_msg = "<div class='alert alert-danger'>Error inserting user</div>";
+                        } else {
+                            $_SESSION["name"] = $data[0]["name"];
+                            $_SESSION["email"] = $data[0]["email"];
+                            $_SESSION["password"] = $data[0]["password"];
+                            header("Location: ?command=home");
+                        }
                     }
                 }    
             }
@@ -160,12 +193,20 @@ class ProjectController {
         // echo $_SESSION["name"];
         include("templates/login.php");
     }
+
+    /*
+    addRestaurantPage() displays the page for adding a restaurant to the database
+    */
     private function addRestaurantPage(){
         $error_msg = "";
         include("templates/add-restaurant.php");
     }
 
-    //fields: name, address, cuisine
+    /*
+    addRestaurant() displays the page but for after the user has enter POST data into the form to add a restaurant. 
+    This function checks for it fields were missing and does not allow for duplicate restaurants by checking to make sure 
+    addresses are unique.
+    */
     private function addRestaurant(){
         $error_msg = "";
         if (($_POST["restaurantName"] == "") or ($_POST["restaurantName"] == "") or ($_POST["address"]=="") or ($_POST["cuisine"] == "") or ($_POST["website"] == "")) {
@@ -187,6 +228,9 @@ class ProjectController {
         include("templates/add-restaurant.php");
     }
 
+    /*
+    getRestaurant() displays the page for an individual restaurant containing its information, average rating, and reviews. 
+    */
     private function getRestaurant(){
         $error_msg = "";
         if(isset($_POST["getRestaurant"])){
@@ -213,6 +257,10 @@ class ProjectController {
         include("templates/getRestaurant.php");
     }
 
+    /*
+    addReview() adds a review to a restaurant by gathering the POST data for a user's inputted rating and text review.
+    The function checks to make sure the user has not already posted a review for that restaurant. 
+    */
     private function addReview(){
         $error_msg = "";
         if(($_POST["restaurantReview"]) == "" or ($_POST["flexRadioDefault"]) == 0){

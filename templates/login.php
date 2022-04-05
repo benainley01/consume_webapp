@@ -1,8 +1,6 @@
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
-<?php
-  $error_msg = "";
-?>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -128,7 +126,7 @@
     <!-- Page Content -->
 
     <div class="container">
-      <?= $error_msg ?>
+      <!-- <?= $error_msg ?> -->
       <section id="section-basic-example">
         <!-- <h1>Signup</h1> -->
           <div class="bg-white border rounded-5">
@@ -144,6 +142,7 @@
                     <h6 style="color: #2f6dba;">If you are new to consume, enter the information that you will use to login next time. <br><br>
                       If you have signed up before, enter the information that you used last time. 
                     </h6>
+                    <h6><?= $error_msg ?> </h6>
 
                     <form action="?command=login" method="post">
                        <!-- Name input -->

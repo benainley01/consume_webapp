@@ -1,10 +1,12 @@
 <?php
-//Benjamin Ainley (bsa2up)
+//Benjamin Ainley (bsa2up) Nancy Hoang (ndh9tsj)
 //Sources used: 
 // Sources used: https://cs4640.cs.virginia.edu
 // https://stackoverflow.com/questions/19011861/is-there-a-float-input-type-in-html5 -->
 // https://stackoverflow.com/questions/10258345/php-simple-foreach-loop-with-html -->
-// Link to website: https://cs4640.cs.virginia.edu/bsa2up/hw5/ 
+// https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+// https://getbootstrap.com/docs/4.1/getting-started/introduction/
+// Link to website: https://cs4640.cs.virginia.edu/bsa2up// 
 
 session_start();
 // Register the autoloader
