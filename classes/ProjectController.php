@@ -33,6 +33,9 @@ class ProjectController {
             case "myReviews":
                 $this->myReviews();
                 break; 
+            case "restaurantsJSON":
+                $this->restaurantsJSON();
+                break;
             case "editReview":
                 $this->editReview();
                 break;
@@ -76,6 +79,13 @@ class ProjectController {
             $myReviews = $data;
         }
         include("templates/myreviews.php");
+    }
+
+    private function restaurantsJSON(){
+        $restaurantsJSON;
+        $data = $this->db->query("SELECT name, address, cuisine, website from project_restaurant");
+        $restaurantsJSON = json_encode($data, JSON_PRETTY_PRINT);
+        echo $restaurantsJSON;
     }
 
     private function editReview(){
