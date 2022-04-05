@@ -193,6 +193,7 @@
           <li>
             <a href="?command=myReviews" class="nav-link px-2">My Reviews</a>
           </li>
+          <li><a href="?command=addRestaurantPage" class="nav-link px-2">Add Resturaunt</a></li>
           <li><a href="#" class="nav-link px-2">Account</a></li>
           <?php if (!isset($_SESSION["name"])): ?>
           <li><a href="?command=login" class="nav-link px-2">Login</a></li>
