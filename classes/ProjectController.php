@@ -66,7 +66,7 @@ class ProjectController {
 
     private function myReviews(){
         $myReviews = [];
-        $data = $this->db->query("SELECT * from project_restaurant NATURAL JOIN project_review WHERE project_review.userid = 1;");
+        $data = $this->db->query("SELECT * from project_restaurant NATURAL JOIN project_review WHERE project_review.userid = ?;", "i", $_SESSION["userid"]);
         if ($data === false){
             $error_msg = "<div class='alert alert-danger'>Error getting your reviews.</div>";
         } else if(!empty($data)){
