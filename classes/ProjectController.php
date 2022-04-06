@@ -182,9 +182,13 @@ class ProjectController {
                         if ($insert === false) {
                             $error_msg = "<div class='alert alert-danger'>Error inserting user</div>";
                         } else {
-                            $_SESSION["name"] = $data[0]["name"];
-                            $_SESSION["email"] = $data[0]["email"];
-                            $_SESSION["password"] = $data[0]["password"];
+                            $_SESSION["name"] = $_POST["name"];
+                            $_SESSION["email"] = $_POST["email"];
+                            $retrieveUserID = $this->db->query("select id from project_user where email = ?;", "s", $_POST["email"]);
+                            // $_SESSION["password"] = $data[0]["password"];
+                            // $_SESSION["password"] = $data[0]["password"];
+                            // $_SESSION["password"] = $data[0]["password"];
+                            $_SESSION["userid"] = $retrieveUserID[0]["id"];
                             header("Location: ?command=home");
                         }
                     }
