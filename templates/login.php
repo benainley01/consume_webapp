@@ -128,6 +128,7 @@
     <div class="container">
       <!-- <?= $error_msg ?> -->
       <section id="section-basic-example">
+        <h1>Login/Signup</h1>
         <!-- <h1>Signup</h1> -->
           <div class="bg-white border rounded-5">
             <section class="w-100">
@@ -138,7 +139,7 @@
                     
                   <!-- </div> -->
                   <div class="col-md-8 col-lg-6 col-xl-5 offset-xl-1 my-lg-5 m-1">
-                    <h1>Login/Signup</h1>
+                    <!-- <h1>Login/Signup</h1> -->
                     <h6 style="color: #2f6dba;">If you are new to consume, enter the information that you will use to login next time. <br><br>
                       If you have signed up before, enter the information that you used last time. 
                     </h6>
@@ -148,16 +149,14 @@
                        <!-- Name input -->
                        <div class="form-outline mb-4">
                         <h5>
-                          <label class="form-label" for="form3Example3">Name </label>
+                          <label class="form-label">Name </label>
                         </h5>
-                        <input type="name" class="form-control" id="name" name="name" placeholder="Enter your name"/>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name"/>
                       </div>
                       <!-- Email input -->
                       <div class="form-outline mb-4">
                         <h5>
-                          <label class="form-label" for="form3Example3"
-                          >Email address</label
-                          >
+                          <label class="form-label">Email address</label>
                         </h5>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Enter a valid email address"/>
                       </div>
@@ -165,7 +164,7 @@
                       <!-- Password input -->
                       <div class="form-outline mb-3">
                         <h5>
-                          <label class="form-label" for="form3Example4">Password</label>
+                          <label class="form-label">Password</label>
                         </h5>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"/>
                       </div>

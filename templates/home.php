@@ -173,6 +173,7 @@
           </div>
         <?php endforeach; ?>
       </div>
+    </div>
 
 <!-- footer -->
     <div class="container">

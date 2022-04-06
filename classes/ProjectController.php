@@ -134,6 +134,7 @@ class ProjectController {
     */
     private function destroySessions() {
         session_destroy();
+        $error_msg="";
         include("templates/login.php");
     }
 
