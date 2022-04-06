@@ -242,12 +242,14 @@ class ProjectController {
             // SELECT *
             // FROM project_user INNER JOIN project_review 
             // ON project_user.id = project_review.userid
+            // WHERE project_review.restaurantid=3
 
             $reviews = $this->db->query(
                 "SELECT name, text, rating
                 from project_user INNER JOIN project_review
                 ON project_user.id = project_review.userid
-                ;");
+                WHERE restaurantid = ?;", "i", $_POST["getRestaurant"]
+                );
 
             if ($_POST["getRestaurant"] == ""){
                 $error_msg = "<div class='alert alert-danger'>Error getting restaurant</div>";

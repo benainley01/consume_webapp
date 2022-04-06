@@ -6,7 +6,8 @@
 // https://stackoverflow.com/questions/10258345/php-simple-foreach-loop-with-html -->
 // https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
 // https://getbootstrap.com/docs/4.1/getting-started/introduction/
-// Link to website: https://cs4640.cs.virginia.edu/bsa2up// 
+// Link to website: https://cs4640.cs.virginia.edu/bsa2up/sprint3/
+// Link to website: https://cs4640.cs.virginia.edu/bsa2up/sprint3/ 
 
 session_start();
 // Register the autoloader

@@ -143,8 +143,6 @@
                                 <button type="button" class="btn btn-outline-success m-1" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $review["reviewid"]; ?>">
                                 Edit
                                 </button>
-
-
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal<?= $review["reviewid"]; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog">
