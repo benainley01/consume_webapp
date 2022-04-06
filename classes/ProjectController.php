@@ -173,7 +173,8 @@ class ProjectController {
                     ){
                         echo $error_msg;
                         $error_msg = "<div class='alert alert-danger'>
-                        Password must contain minimum eight characters, at least one letter, one number and one special character
+                        Password must contain minimum eight characters, at least one letter, one number, and one special character @$!%*#?&. 
+                        The only special characters accepted are @$!%*#?&. 
                         </div>"; 
                     } else {
                         $insert = $this->db->query("insert into project_user (name, email, password) values (?, ?, ?);", 
