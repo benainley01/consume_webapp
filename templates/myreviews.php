@@ -78,7 +78,7 @@
           >
             <!-- added align-items-center css-->
             <li>
-              <a class="navbar-brand px-2" href="#"
+              <a class="navbar-brand px-2" href="?command=home"
                 ><img
                   src="Consume-logos/Consume-logos_transparent.png"
                   width="70"
@@ -90,7 +90,7 @@
             <a href="?command=myReviews" class="nav-link px-2">My Reviews</a>
             </li>
             <li><a href="?command=addRestaurantPage" class="nav-link px-2">Add Resturaunt</a></li>
-            <li><a href="#" class="nav-link px-2">Account</a></li>
+            <li><a href="?command=account" class="nav-link px-2">Account</a></li>
             <?php if (!isset($_SESSION["name"])): ?>
             <li><a href="?command=login" class="nav-link px-2">Login</a></li>
             <?php endif; ?>
@@ -126,7 +126,7 @@
                 <div class="col">
                     <div class="card h-100 text-center">
                         <img
-                        src="https://s3-media0.fl.yelpcdn.com/bphoto/eWnMZOYJ2O8SAU6CyAWvSg/o.jpg"
+                        src="<?= ($review["imageURL"] == NULL) ? "https://wtwp.com/wp-content/uploads/2015/06/placeholder-image.png" : $review["imageURL"] ?>"
                         class="card-img-top"
                         alt="restaurant picture"
                         height="180"

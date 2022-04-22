@@ -48,6 +48,15 @@ class ProjectController {
             case "addReview":
                 $this->addReview();
                 break;
+            case "account":
+                $this->account();
+                break;
+            case "updateEmail":
+                $this->updateEmail();
+                break;
+            case "updatePassword":
+                $this->updatePassword();
+                break;
             case "logout":
                 $this->destroySessions();
                 break;
@@ -65,7 +74,7 @@ class ProjectController {
     */
     private function home(){
         $restaurants = [];
-        $data = $this->db->query("select * from project_restaurant");
+        $data = $this->db->query("select * from project_restaurant;");
         // SELECT AVG(project_review.rating)
         // FROM project_review NATURAL JOIN project_restaurant
 
@@ -79,6 +88,67 @@ class ProjectController {
             // print_r($avg);
         }
         include("templates/home.php");
+    }
+
+    /*
+    account() displays the account page that allows users to change their email and/or password. 
+    */
+    private function account(){
+        $error_msg = "";
+        include("templates/account.php");
+    }
+
+    /*
+    updateEmail() changes the user email based on the supplied input. It checks to make sure that the new email deoes not already 
+    exist in our database. 
+    */
+    private function updateEmail(){
+        $error_msg = "";
+        if ($_POST["newEmail"]!= ""){
+            $data = $this->db->query("select * from project_user where email = ?;", "s", $_POST["newEmail"]);
+            if (!empty($data)){
+                $error_msg = "<div class='alert alert-danger'>Email is already in use. Use another.</div>";
+            } else {
+                $userid = $_SESSION["userid"];
+                $updateEmail = $this->db->query("UPDATE project_user set email = ? WHERE project_user.id = $userid;", "s", $_POST["newEmail"]);
+                if ($updateEmail === false){
+                    $error_msg = "<div class='alert alert-danger'>Error changing to new email.</div>";
+                } else{
+                    $_SESSION["email"] = $_POST["newEmail"];
+                    $error_msg = "<div class='alert alert-success'>Successful changing email to " . $_SESSION["email"] . "</div>";
+                }
+            }
+        }else{
+            $error_msg = "<div class='alert alert-danger'>You didn't enter a new email. Try again.</div>";
+        }
+        include("templates/account.php");
+    }
+
+    /*
+    updatePassword() changes the user password based on the supplied input. It checks to make sure both password input fields are equal 
+    and that the new password follows the password requirements listed in the instructions. 
+    */
+    private function updatePassword(){
+        $error_msg = "";
+        if ($_POST["newPassword"]== "" or $_POST["passwordConfirm"]== ""){
+            $error_msg = "<div class='alert alert-danger'>Password inputs fields can not be empty. Try again</div>";
+        } else{
+            if ($_POST["newPassword"]!= $_POST["passwordConfirm"]){
+                $error_msg = "<div class='alert alert-danger'>Password inputs do not match. Try again.</div>";
+            } else if (!preg_match("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$^", $_POST["newPassword"])){
+                $error_msg = "<div class='alert alert-danger'>New password does not meet guideline. Try another password.</div>";
+            }else{
+                $userid = $_SESSION["userid"];
+                $updatePassword = $this->db->query("UPDATE project_user set password = ? WHERE project_user.id = $userid;", "s", password_hash($_POST["newPassword"], PASSWORD_DEFAULT));
+                if ($updatePassword === false){
+                    $error_msg = "<div class='alert alert-danger'>Unexpected error changing to new password.</div>";
+                } else{
+                    // $_SESSION["password"] = $_POST["newPassword"];
+                    $error_msg = "<div class='alert alert-success'>Change password success!</div>";
+                }
+            }
+        }
+        include("templates/account.php");
     }
 
     /*
@@ -157,7 +227,7 @@ class ProjectController {
                     if (password_verify($_POST["password"], $data[0]["password"])) {
                         $_SESSION["name"] = $data[0]["name"];
                         $_SESSION["email"] = $data[0]["email"];
-                        $_SESSION["password"] = $data[0]["password"];
+                        // $_SESSION["password"] = $data[0]["password"];
                         $_SESSION["userid"] = $data[0]["id"];
                         header("Location: ?command=home");
                     } else {
@@ -250,7 +320,7 @@ class ProjectController {
             // WHERE project_review.restaurantid=3
 
             $reviews = $this->db->query(
-                "SELECT name, text, rating
+                "SELECT name, text, rating, imageURL
                 from project_user INNER JOIN project_review
                 ON project_user.id = project_review.userid
                 WHERE restaurantid = ?;", "i", $_POST["getRestaurant"]
@@ -276,12 +346,22 @@ class ProjectController {
         }else{
             $check = $this->db->query("SELECT * from project_review WHERE project_review.userid = ? and project_review.restaurantid = ?;", "ii", $_SESSION["userid"], $_POST["getRestaurant"]);
             if(!$check){
-                $insert = $this->db->query("insert into project_review (rating, text, userid, restaurantid) values (?, ?, ?, ?);",
-                "ssii", $_POST["flexRadioDefault"], $_POST["restaurantReview"], $_SESSION["userid"], $_POST["getRestaurant"]);
-                if ($insert = false){
-                    $error_msg = "<div class='alert alert-danger'>Error adding restaurant</div>";
-                } else {
-                    header("Location: ?command=getRestaurant");
+                if (empty($_POST["imageReview"])){
+                    $insert = $this->db->query("insert into project_review (rating, text, userid, restaurantid) values (?, ?, ?, ?);",
+                    "ssii", $_POST["flexRadioDefault"], $_POST["restaurantReview"], $_SESSION["userid"], $_POST["getRestaurant"]);
+                    if ($insert = false){
+                        $error_msg = "<div class='alert alert-danger'>Error adding restaurant</div>";
+                    } else {
+                        header("Location: ?command=getRestaurant");
+                    }
+                }else{
+                    $insert = $this->db->query("insert into project_review (rating, text, userid, restaurantid,imageURL) values (?, ?, ?, ?, ?);",
+                    "ssiis", $_POST["flexRadioDefault"], $_POST["restaurantReview"], $_SESSION["userid"], $_POST["getRestaurant"], $_POST["imageReview"]);
+                    if ($insert = false){
+                        $error_msg = "<div class='alert alert-danger'>Error adding restaurant</div>";
+                    } else {
+                        header("Location: ?command=getRestaurant");
+                    }
                 }
             } else {
                 $error_msg = "<div class='alert alert-danger'>You already wrote a review</div>";

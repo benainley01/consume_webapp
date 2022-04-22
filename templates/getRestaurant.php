@@ -81,7 +81,7 @@
           >
             <!-- added align-items-center css-->
             <li>
-              <a class="navbar-brand px-2" href="#"
+              <a class="navbar-brand px-2" href="?command=home"
                 ><img
                   src="Consume-logos/Consume-logos_transparent.png"
                   width="70"
@@ -94,7 +94,7 @@
               <a href="?command=myReviews" class="nav-link px-2">My Reviews</a>
             </li>
             <li><a href="?command=addRestaurantPage" class="nav-link px-2">Add Resturaunt</a></li>
-            <li><a href="#" class="nav-link px-2">Account</a></li>
+            <li><a href="?command=account" class="nav-link px-2">Account</a></li>
             <?php if (!isset($_SESSION["name"])): ?>
             <li><a href="?command=login" class="nav-link px-2">Login</a></li>
             <?php endif; ?>
@@ -131,6 +131,7 @@
       <div class = "media pb-4">
           <h5> Average Star Rating: <?= $avg; ?> </h5>
       </div>
+
       <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Write Review
@@ -157,33 +158,36 @@
                     <div class="form-check-inline">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1">
                         <label class="form-check-label" for="flexRadioDefault1">
-                            1
+                          ★
                         </label>
                     </div>
                     <div class="form-check-inline">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="2">
                         <label class="form-check-label" for="flexRadioDefault2">
-                            2
+                          ★★
                         </label>
                     </div>
                     <div class="form-check-inline">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="3">
                         <label class="form-check-label" for="flexRadioDefault3">
-                            3
+                          ★★★
                         </label>
                     </div>
                     <div class="form-check-inline">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" value="4">
                         <label class="form-check-label" for="flexRadioDefault4">
-                            4
+                          ★★★★
                         </label>
                     </div>
                     <div class="form-check-inline">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" value="5" checked>
                         <label class="form-check-label" for="flexRadioDefault5">
-                            5
+                          ★★★★★
                         </label>
                     </div>    
+                    <br><br>
+                    <label for="imageReview" class="form-label">Image Link (Optional)</label>
+                    <input class="form-control" type="text" id="imageReview" name="imageReview" placeholder="Image URL">
                     <br>
                     <input 
                         type="hidden" 
@@ -191,7 +195,7 @@
                         id="getRestaurant" 
                         name="getRestaurant" 
                         value="<?= $data[0]["restaurantid"]; ?>"
-                    />          
+                    />
                     <div class="text-center">                
                         <button type="submit" class="btn btn-primary">Submit Review</button>
                     </div>
@@ -205,6 +209,33 @@
           </div>
         </div>
         <div class="container pt-5">
+
+        <!-- image section -->
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin: auto;" >
+          <div class="carousel-inner">
+            <?php $active = true; ?>
+            <?php foreach($reviews as $review): ?>
+              <?php if ($review["imageURL"] != NULL):?>
+                <div class="carousel-item <?php echo ($active == true)?"active":"" ?>">
+                  <img class="img-fluid d-block w-100" src=<?= $review["imageURL"]?> alt="First slide" style="object-fit: cover; overflow: hidden; height: 75vh; object-position: center;">
+                  <div class="carousel-caption">
+                    <h6>Photo posted by: <?= $review["name"]?></h6>
+                  </div>
+                </div>
+                <?php $active = false; ?>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <br>
                    
         <table class="table">
           <thead class="thead-dark">

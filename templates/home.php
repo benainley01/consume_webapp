@@ -80,7 +80,7 @@
           >
             <!-- added align-items-center css-->
             <li>
-              <a class="navbar-brand px-2" href="#"
+              <a class="navbar-brand px-2" href="?command=home"
                 ><img
                   src="Consume-logos/Consume-logos_transparent.png"
                   width="70"
@@ -93,7 +93,7 @@
               <a href="?command=myReviews" class="nav-link px-2">My Reviews</a>
             </li>
             <li><a href="?command=addRestaurantPage" class="nav-link px-2">Add Resturaunt</a></li>
-            <li><a href="#" class="nav-link px-2">Account</a></li>
+            <li><a href="?command=account" class="nav-link px-2">Account</a></li>
             <?php if (!isset($_SESSION["name"])): ?>
             <li><a href="?command=login" class="nav-link px-2">Login</a></li>
             <?php endif; ?>
@@ -124,26 +124,45 @@
       <h1>Consume</h1>
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php foreach($restaurants as $restaurant): ?>
+          <?php $photos = $this->db->query("SELECT imageURL from project_restaurant NATURAL JOIN project_review WHERE restaurantid = ?;", "i", $restaurant["restaurantid"]);?>
+          <?php $count = 0;
+            foreach($photos as $photo){
+              if(!empty($photo["imageURL"])){
+                $count += 1;
+              };
+            }
+          ?>
+
           <div class="col">
             <div class="card h-100 text-center">
-              <img
-                src="https://s3-media0.fl.yelpcdn.com/bphoto/eWnMZOYJ2O8SAU6CyAWvSg/o.jpg"
-                class="card-img-top"
-                alt="restaurant picture"
-                height="180"
-              />
+              <?php if ($count == 0): ?>
+                <img
+                  src="https://wtwp.com/wp-content/uploads/2015/06/placeholder-image.png"
+                  class="card-img-top"
+                  alt="restaurant picture"
+                  height="180"
+                  style="object-fit: cover; overflow: hidden; height: 180px; object-position: center;"
+                />
               <div class="card-body">
+              <?php else: ?>
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner pb-3">
+                    <?php $active = true; ?>
+                    <?php foreach($photos as $photo): ?>
+                      <?php if ($photo["imageURL"] != NULL):?>
+                        <div class="carousel-item <?php echo ($active == true)?"active":"" ?>">
+                          <img src=<?= $photo["imageURL"]?> class="d-block w-100" alt="image carousel" style="object-fit: cover; overflow: hidden; height: 180px; object-position: center;">
+                        </div>
+                      <?php $active = false; ?>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
+                  </div>
+
+              <?php endif;?>
                 <h5 class="card-title"><?= $restaurant["name"]; ?></h5>
                 <p class = "card-text">
                   <?= $restaurant["address"]; ?>
                 </p>
-                <!-- <p class="card-text">
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                </p> -->
                 <?php
                 $avg_rating = $this->db->query("SELECT AVG(project_review.rating) from project_restaurant NATURAL JOIN project_review WHERE restaurantid = ?;", "i", $restaurant["restaurantid"]);
                 $avg = round($avg_rating[0]["AVG(project_review.rating)"], 1);
@@ -152,22 +171,22 @@
                   Average Star Rating: 
                   <?= $avg; ?>
                 </p>
+              </div>
 
-                <div class="card-buttons">
-                  <!-- <a href="#link" class="btn btn-outline-primary" role="button">Reviews</a> -->
-                  <form action="?command=getRestaurant" method="post">
-                    <input type="hidden" class="form-control" id="getRestaurant" name="getRestaurant" value="<?= $restaurant["restaurantid"]; ?>"/>          
-                    <button type="submit" class="btn btn-outline-primary">Reviews</button>
-                    <a
-                      href="<?= $restaurant["website"]; ?>"
-                      class="btn btn-outline-primary"
-                      role="button"
-                      target="_blank"
-                      >
-                      Website
-                    </a>
-                  </form>
-                </div>
+              <div class="card-buttons p-2">
+                <!-- <a href="#link" class="btn btn-outline-primary" role="button">Reviews</a> -->
+                <form action="?command=getRestaurant" method="post">
+                  <input type="hidden" class="form-control" id="getRestaurant" name="getRestaurant" value="<?= $restaurant["restaurantid"]; ?>"/>          
+                  <button type="submit" class="btn btn-outline-primary">Reviews</button>
+                  <a
+                    href="<?= $restaurant["website"]; ?>"
+                    class="btn btn-outline-primary"
+                    role="button"
+                    target="_blank"
+                    >
+                    Website
+                  </a>
+                </form>
               </div>
             </div>
           </div>

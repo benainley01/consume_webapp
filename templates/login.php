@@ -77,7 +77,7 @@
           >
             <!-- added align-items-center css-->
             <li>
-              <a class="navbar-brand px-2" href="#"
+              <a class="navbar-brand px-2" href="?command=home"
                 ><img
                   src="Consume-logos/Consume-logos_transparent.png"
                   width="70"
@@ -143,6 +143,10 @@
                     <h6 style="color: #2f6dba;">If you are new to consume, enter the information that you will use to login next time. <br><br>
                       If you have signed up before, enter the information that you used last time. 
                     </h6>
+                    <h6 style="color: #2f6dba;">
+                      Password must contain minimum eight characters, at least one letter, one number, and one special character @$!%*#?&. 
+                      The only special characters accepted are @$!%*#?&.
+                    </h6>
                     <h6><?= $error_msg ?> </h6>
 
                     <form action="?command=login" method="post">
@@ -158,7 +162,7 @@
                         <h5>
                           <label class="form-label">Email address</label>
                         </h5>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter a valid email address"/>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter an email address"/>
                       </div>
 
                       <!-- Password input -->
@@ -167,6 +171,7 @@
                           <label class="form-label">Password</label>
                         </h5>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"/>
+                        <div id="pwhelp" class="form-text"></div>
                       </div>
 
                       <div class="text-center text-lg-start mt-4 pt-2" id = "loginButton">
@@ -232,5 +237,44 @@
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      function loginPasswordValidate(len=8){
+          var password = document.getElementById("password");
+          var passval = password.value;
+          var pwhelp = document.getElementById("pwhelp");
+          var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+          if (!regex.test(passval)){
+              password.classList.add("is-invalid");
+              pwhelp.textContent = "Password must meet requirements";
+          }else {
+              password.classList.remove("is-invalid");
+              pwhelp.textContent = "";
+          }
+      }
+      document.getElementById("password").addEventListener("keyup", function() {
+        loginPasswordValidate(8);
+      });
+
+      function loginEmailValidate(){
+            var email = document.getElementById("email");
+            var emailval = email.value
+            var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            if (!regex.test(emailval)){
+                email.classList.add("is-invalid");
+                submit.disabled = true; 
+            }else {
+                email.classList.remove("is-invalid");
+                submit.disabled = false;
+            }
+        }
+        document.getElementById("email").addEventListener("keyup", function() {
+          loginEmailValidate();
+        });
+
+    </script>
+
   </body>
 </html>

@@ -123,30 +123,32 @@
         <div class = "container"> 
           <div class="row col-xs-8">
               <div class="h-100 p-5 bg-light border rounded-3">
-                  <h2>Add Restaurant</h2>
-                  <!-- user_id, name, category, t_date, amount, type -->
+                  <h2>Account Information</h2>
                   <?= $error_msg ?>
-                  <form action="?command=addRestaurant" method="post">
+                  <form action="?command=updateEmail" method="post">
                       <div class="mb-3">
-                          <label for="restaurantName" class="form-label">Restaurant Name</label>
-                          <input type="text" class="form-control" id="restaurantName" name="restaurantName"/>
+                          <label for="email" class="form-label">Change Email</label>
+                          <input type="text" class="form-control" id="newEmail" name="newEmail" placeholder=<?=$_SESSION["email"] ?>>
+                          <div id="ehelp" class="form-text"></div>
                       </div>
-                      <div class="mb-3">
-                          <label for="address" class="form-label">Address</label>
-                          <input type="text" class="form-control" id="address" name="address"/>
-                      </div>
-                      <div class="mb-3">
-                          <label for="cuisine" class="form-label">Cuisine Type</label>
-                          <input type="text" class="form-control" id="cuisine" name="cuisine"/>
-                      </div>
-
-                      <div class="mb-3">
-                          <label for="website" class="form-label">Website</label>
-                          <input type="text" class="form-control" id="website" name="website"/>
-                      </div>
-                      
                       <div class="text-center">                
-                          <button type="submit" class="btn btn-primary">Submit</button>
+                          <button type="submit" class="btn btn-primary" id = "submitEmail" name = "submitEmail">Change Email</button>
+                      </div>
+                  </form>
+                  <form action="?command=updatePassword" method="post">
+                      <div class="mb-3">
+                          <label for="newPassword" class="form-label">New Password</label>
+                          <p>Password must contain minimum eight characters, at least one letter, one number, and one special character @$!%*#?&. The only special characters accepted are @$!%*#?&.</p>
+                          <input type="password" class="form-control" id="newPassword" name="newPassword"/>
+                          <div id="pwhelp" class="form-text"></div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="passwordConfirm" class="form-label">Confirm Password</label>
+                          <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm"/>
+                          <div id="pwhelp2" class="form-text"></div>
+                      </div>
+                      <div class="text-center">                
+                          <button type="submit" class="btn btn-primary" id = "submit" name = "submit">Change Password</button>
                       </div>
                   </form>
               </div>
@@ -199,5 +201,75 @@
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
+
+    <!-- javascript validation  -->
+    <script>
+        function passwordValidate(len=8){
+            var password = document.getElementById("newPassword");
+            var passval = password.value;
+            var submit = document.getElementById("submit");
+            var pwhelp = document.getElementById("pwhelp");
+            var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+            if (!regex.test(passval)){
+                password.classList.add("is-invalid");
+                submit.disabled = true; 
+                pwhelp.textContent = "Password must meet requirements";
+            }else {
+                password.classList.remove("is-invalid");
+                submit.disabled = false;
+                pwhelp.textContent = "";
+            }
+
+        }
+
+        function passwordConfirmValidate(len=8){
+            var password = document.getElementById("passwordConfirm");
+            var passval = password.value;
+            var submit = document.getElementById("submit");
+            var pwhelp = document.getElementById("pwhelp2");
+            var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+            if (!regex.test(passval)){
+                password.classList.add("is-invalid");
+                submit.disabled = true; 
+                pwhelp.textContent = "Password must meet requirements";
+            }else {
+                password.classList.remove("is-invalid");
+                submit.disabled = false;
+                pwhelp.textContent = "";
+            }
+
+        }
+        // anonymous function below
+        document.getElementById("newPassword").addEventListener("keyup", function() {
+            passwordValidate(8);
+        });
+        document.getElementById("passwordConfirm").addEventListener("keyup", function() {
+            passwordConfirmValidate(8);
+        });
+
+        function emailValidate(){
+            var email = document.getElementById("newEmail");
+            var emailval = email.value
+            var submit = document.getElementById("submitEmail");
+            var ehelp = document.getElementById("ehelp");
+            var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            if (!regex.test(emailval)){
+                email.classList.add("is-invalid");
+                submit.disabled = true; 
+                ehelp.textContent = "Invalid email format.";
+            }else {
+                email.classList.remove("is-invalid");
+                submit.disabled = false;
+                ehelp.textContent = "";
+            }
+        }
+        document.getElementById("newEmail").addEventListener("keyup", function() {
+            emailValidate();
+        });
+
+    </script>
   </body>
 </html>
