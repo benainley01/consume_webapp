@@ -54,7 +54,7 @@
     
   </head>
 
-  <body>
+  <body onload="reviewCount()">
     <!-- header and navbar -->
     <header class="p-3 mb-3 border-bottom">
       <div class="container">
@@ -236,8 +236,11 @@
           </button>
         </div>
         <br>
+        <div id="reviewCount">
+          
+        </div>
                    
-        <table class="table">
+        <table class="table" id="table">
           <thead class="thead-dark">
             <tr>
               <th scope="col">Name</th>
@@ -309,10 +312,18 @@
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
-    <script>
+    <!-- <script>
         $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
         })
+    </script> -->
+    <script>
+      function reviewCount(){
+        var table = document.getElementById("table");
+        var totalRowCount = table.rows.length -1; // 5
+        console.log(totalRowCount)
+        document.getElementById("reviewCount").innerHTML = "This restaurant has " + totalRowCount + " reviews"
+      }
     </script>
   </body>
 </html>
