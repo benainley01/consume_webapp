@@ -218,8 +218,9 @@
                                 <!-- Form for processing deleting a review -->
                                 <form action="?command=deleteReview" method="post">
                                     <input type="hidden" class="form-control" id="deleteReview" name="deleteReview" value="<?= $review["reviewid"]; ?>"/>          
-                                    <button type="submit" class="btn btn-outline-danger m-1">Delete</button>
+                                    <button type="submit" class="btn btn-outline-danger m-1"  onclick='return confirm_delete()'>Delete</button>
                                 </form>
+                                <!-- onclick="deleteReview(event)" -->
 
                             </div>
                         </div>
@@ -276,5 +277,10 @@
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function confirm_delete(){
+        return confirm("Are you sure you want to delete your review?")
+      }
+    </script>
   </body>
 </html>

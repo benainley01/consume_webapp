@@ -6,8 +6,9 @@
 // https://stackoverflow.com/questions/10258345/php-simple-foreach-loop-with-html -->
 // https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
 // https://getbootstrap.com/docs/4.1/getting-started/introduction/
+// https://stackoverflow.com/questions/16849117/html-how-to-do-a-confirmation-popup-to-a-submit-button-and-then-send-the-reque
 // Link to website: https://cs4640.cs.virginia.edu/bsa2up/sprint3/
-// Link to website: https://cs4640.cs.virginia.edu/bsa2up/sprint3/ 
+
 
 session_start();
 // Register the autoloader

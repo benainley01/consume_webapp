@@ -241,5 +241,18 @@
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function getRestaurants() {
+        const cards = document.querySelectorAll(".card");
+        for (var i = 0; i < cards.length; i++) {
+          console.log('card: ', cards[i]);
+        }
+        const titles = document.querySelectorAll(".card-title");
+        for (var i = 0; i < titles.length; i++) {
+          console.log('title: ', titles[i]);
+        }
+      }
+
+    </script>
   </body>
 </html>
