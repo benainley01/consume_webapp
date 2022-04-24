@@ -126,7 +126,6 @@
                   <h2>Add Restaurant</h2>
                   <!-- user_id, name, category, t_date, amount, type -->
                   <?= $error_msg ?>
-                  <div id="formCheck"></div>
                   <form action="?command=addRestaurant" method="post">
                       <div class="mb-3">
                           <label for="restaurantName" class="form-label">Restaurant Name</label>
@@ -147,7 +146,7 @@
                       </div>
                       
                       <div class="text-center">                
-                          <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+                          <button type="submit" class="btn btn-primary">Submit</button>
                       </div>
                   </form>
               </div>
@@ -199,46 +198,6 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
-    >
-    </script>
-
-    <script>
-      function inputValidate(){
-        var name = document.getElementById("restaurantName");
-        var address = document.getElementById("address");
-        var cuisine = document.getElementById("cuisine");
-        var website = document.getElementById("website");
-        if (name.value.length == 0 || address.value.length == 0 || cuisine.value.length == 0 || website.value.length == 0){
-          document.getElementById("submitButton").disabled = true;
-          document.getElementById('formCheck').innerHTML = 'Make sure to fill out all form fields';
-          // document.getElementById('formCheck').style.cssText = style="background: rgba(255, 0, 0, 0.4);";
-          document.getElementById("formCheck").className = "alert alert-danger";
-
-        } else {
-          document.getElementById("submitButton").disabled = false;
-          document.getElementById('formCheck').innerHTML = 'Ready to Submit';
-          // document.getElementById('formCheck').style.cssText = style="background: rgba(51, 170, 51, .4)";
-          document.getElementById("formCheck").className = "alert alert-success";
-        }
-        console.log("validating")
-        console.log(name.value, address.value, cuisine.value, website.value)
-
-      }
-
-      document.getElementById("restaurantName").addEventListener("keyup", function() {
-            inputValidate();
-            
-      });
-      document.getElementById("address").addEventListener("keyup", function() {
-            inputValidate();
-      });
-      document.getElementById("cuisine").addEventListener("keyup", function() {
-            inputValidate();
-      });
-      document.getElementById("website").addEventListener("keyup", function() {
-            inputValidate();
-      });
-
-    </script>
+    ></script>
   </body>
 </html>

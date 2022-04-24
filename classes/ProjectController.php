@@ -33,8 +33,8 @@ class ProjectController {
             case "myReviews":
                 $this->myReviews();
                 break; 
-            case "restaurantsJSON":
-                $this->restaurantsJSON();
+            case "myRestaurantsJSON":
+                $this->myRestaurantsJSON();
                 break;
             case "editReview":
                 $this->editReview();
@@ -166,20 +166,21 @@ class ProjectController {
     }
 
     /*
-    restaurantsJSON() returns a JSON containing all restaurants in the database including names, addresses, cuisines, and websites
+    myRestaurantsJSON() returns a JSON containing all reviews for restaurants the user has created
     */
-    private function restaurantsJSON(){
-        $restaurantsJSON;
-        $data = $this->db->query("SELECT name, address, cuisine, website from project_restaurant");
-        $restaurantsJSON = json_encode($data, JSON_PRETTY_PRINT);
-        echo $restaurantsJSON;
+    private function myRestaurantsJSON(){
+        $myRestaurantsJSON;
+        $data = $this->db->query("SELECT * from project_restaurant NATURAL JOIN project_review WHERE project_review.userid = ?;", "i", $_SESSION["userid"]);
+        $myRestaurantsJSON = json_encode($data, JSON_PRETTY_PRINT);
+        echo $myRestaurantsJSON;
+        return $myRestaurantsJSON;
     }
 
     /*
     editReview() performs a SQL query to update a user's review based upon the POST data for editing a review
     */
     private function editReview(){
-        $data = $this->db->query("UPDATE project_review set rating = ?, text = ? WHERE project_review.reviewid = ?;", "isi", $_POST["flexRadioDefault"], $_POST["editReviewText"], $_POST["editReviewID"]);
+        $data = $this->db->query("UPDATE project_review set rating = ?, text = ?, imageURL = ? WHERE project_review.reviewid = ?;", "issi", $_POST["flexRadioDefault"], $_POST["editReviewText"], $_POST["imageReview"], $_POST["editReviewID"]);
         if ($data === false){
             $error_msg = "<div class='alert alert-danger'>Error deleting your review.</div>";
         } else{
