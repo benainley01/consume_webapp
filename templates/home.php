@@ -121,8 +121,12 @@
     </header>
 <!-- Page Content -->
     <div class="container">
-      <h1>Consume</h1>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div>
+        <h1>Consume <button type="button" class="btn btn-primary" onClick="getRandom()">Check out a random restaurant</button></h1>
+        
+      </div>
+      
+      <div class="row row-cols-1 row-cols-md-3 g-4" id="row">
         <?php foreach($restaurants as $restaurant): ?>
           <?php $photos = $this->db->query("SELECT imageURL from project_restaurant NATURAL JOIN project_review WHERE restaurantid = ?;", "i", $restaurant["restaurantid"]);?>
           <?php $count = 0;
@@ -133,7 +137,7 @@
             }
           ?>
 
-          <div class="col">
+          <div class="col" id = "column">
             <div class="card h-100 text-center">
               <?php if ($count == 0): ?>
                 <img
@@ -175,7 +179,7 @@
 
               <div class="card-buttons p-2">
                 <!-- <a href="#link" class="btn btn-outline-primary" role="button">Reviews</a> -->
-                <form action="?command=getRestaurant" method="post">
+                <form action="?command=getRestaurant" method="post" id = "restForm">
                   <input type="hidden" class="form-control" id="getRestaurant" name="getRestaurant" value="<?= $restaurant["restaurantid"]; ?>"/>          
                   <button type="submit" class="btn btn-outline-primary">Reviews</button>
                   <a
@@ -243,14 +247,34 @@
     ></script>
     <script>
       function getRestaurants() {
-        const cards = document.querySelectorAll(".card");
+        const cards = document.querySelectorAll(".col");
+        const titles = document.querySelectorAll(".card-title");
+        document.getElementById("row").innerHTML = "";
         for (var i = 0; i < cards.length; i++) {
           console.log('card: ', cards[i]);
+          // document.getElementById("row").appendChild(cards[i]);
         }
-        const titles = document.querySelectorAll(".card-title");
+        document.getElementById("row").appendChild(cards[1]);
+        
         for (var i = 0; i < titles.length; i++) {
           console.log('title: ', titles[i]);
         }
+      }
+
+      // https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
+      function randomIntFromInterval(min, max) { // min and max included 
+        return Math.floor(Math.random() * (max - min + 1) + min)
+      }
+
+      const rndInt = randomIntFromInterval(1, 6)
+      console.log(rndInt)
+
+      function getRandom() {
+        const buttons = document.querySelectorAll("#restForm");
+        const rndInt = randomIntFromInterval(0, buttons.length);
+        // console.log(buttons[rndInt]);
+        buttons[rndInt].submit();
+        
       }
 
     </script>
