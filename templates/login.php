@@ -239,6 +239,10 @@
     ></script>
 
     <script>
+      /*
+      loginPasswordValidate() makes the field input invalid and displays a warning message 
+      until the password meets the requirements 
+      */
       function loginPasswordValidate(len=8){
           var password = document.getElementById("password");
           var passval = password.value;
@@ -257,6 +261,10 @@
         loginPasswordValidate(8);
       });
 
+      /*
+      loginEmailValidate() makes the field input invalid and displays a warning message 
+      until the input is in email format
+      */
       function loginEmailValidate(){
             var email = document.getElementById("email");
             var emailval = email.value

@@ -319,6 +319,10 @@
         })
     </script> -->
     <script>
+      /*
+      reviewCount() edits the HTML for a restaurant's page to display 
+      the total amount of reviews that it has
+      */
       function reviewCount(){
         var table = document.getElementById("table");
         var totalRowCount = table.rows.length -1; // 5

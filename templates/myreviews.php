@@ -299,6 +299,11 @@
     ></script>
 
     <script>
+      /*
+      getCuisine() performs an AJAX request to retrieve the JSON containing
+      all restaurants for which a user has written reviews for. This JSON data is used 
+      to update a table on the myreviews.php page that shows the count of reviews for each type of cuisine. 
+      */
       function getCuisine(){
         var map = new Map();
 

@@ -203,6 +203,10 @@
     </script>
 
     <script>
+      /*
+      inputValidate() disables submit button and displays a red box stating that all form fields must be 
+      filled out until all inputs are provided. 
+      */
       function inputValidate(){
         var name = document.getElementById("restaurantName");
         var address = document.getElementById("address");
