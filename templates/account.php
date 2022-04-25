@@ -102,14 +102,14 @@
             <?php endif; ?>
           </ul>
 
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <input
               type="search"
               class="form-control"
               placeholder="Search..."
               aria-label="Search"
             />
-          </form>
+          </form> -->
 
           <?php
             if (isset($_SESSION["name"])){
@@ -250,20 +250,29 @@
         });
 
         function emailValidate(){
-            var email = document.getElementById("newEmail");
-            var emailval = email.value
-            var submit = document.getElementById("submitEmail");
-            var ehelp = document.getElementById("ehelp");
-            var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            // var email = document.getElementById("newEmail");
+            // var emailval = email.value
+            // var submit = document.getElementById("submitEmail");
+            // var ehelp = document.getElementById("ehelp");
+            // var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            //use of JS object
+            var emailValidator = {
+              email: document.getElementById("newEmail"), 
+              emailval: email.value,
+              submit: document.getElementById("submitEmail"), 
+              ehelp: document.getElementById("ehelp"), 
+              regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            };
 
             if (!regex.test(emailval)){
-                email.classList.add("is-invalid");
-                submit.disabled = true; 
-                ehelp.textContent = "Invalid email format.";
+                emailValidator.email.classList.add("is-invalid");
+                emailValidator.submit.disabled = true; 
+                emailValidator.ehelp.textContent = "Invalid email format.";
             }else {
-                email.classList.remove("is-invalid");
-                submit.disabled = false;
-                ehelp.textContent = "";
+                emailValidator.email.classList.remove("is-invalid");
+                emailValidator.submit.disabled = false;
+                emailValidator.ehelp.textContent = "";
             }
         }
         document.getElementById("newEmail").addEventListener("keyup", function() {
