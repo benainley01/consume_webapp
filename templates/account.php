@@ -102,14 +102,14 @@
             <?php endif; ?>
           </ul>
 
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <input
               type="search"
               class="form-control"
               placeholder="Search..."
               aria-label="Search"
             />
-          </form>
+          </form> -->
 
           <?php
             if (isset($_SESSION["name"])){
@@ -204,6 +204,10 @@
 
     <!-- javascript validation  -->
     <script>
+        /*
+        passwordValidate() disables the submit button and makes password field invalid
+        until password field meets the requirements
+        */
         function passwordValidate(len=8){
             var password = document.getElementById("newPassword");
             var passval = password.value;
@@ -222,7 +226,10 @@
             }
 
         }
-
+        /*
+        passwordConfirmValidate() disables submit button and makes confirm password field invalid
+        until the confirm password field meets the requirements
+        */
         function passwordConfirmValidate(len=8){
             var password = document.getElementById("passwordConfirm");
             var passval = password.value;
@@ -241,6 +248,7 @@
             }
 
         }
+
         // anonymous function below
         document.getElementById("newPassword").addEventListener("keyup", function() {
             passwordValidate(8);
@@ -249,21 +257,34 @@
             passwordConfirmValidate(8);
         });
 
+        /*
+        emailValidate() disables the submit button and makes email field invalid until 
+        email field meets the requirements
+        */
         function emailValidate(){
-            var email = document.getElementById("newEmail");
-            var emailval = email.value
-            var submit = document.getElementById("submitEmail");
-            var ehelp = document.getElementById("ehelp");
-            var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            // var email = document.getElementById("newEmail");
+            // var emailval = email.value
+            // var submit = document.getElementById("submitEmail");
+            // var ehelp = document.getElementById("ehelp");
+            // var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+            //use of JS object
+            const emailValidator = {
+              email: document.getElementById("newEmail"), 
+              emailval: email.value,
+              submit: document.getElementById("submitEmail"), 
+              ehelp: document.getElementById("ehelp"), 
+              regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            };
+            const checker = new emailValidator();
             if (!regex.test(emailval)){
-                email.classList.add("is-invalid");
-                submit.disabled = true; 
-                ehelp.textContent = "Invalid email format.";
+              checker.email.classList.add("is-invalid");
+              checker.submit.disabled = true; 
+              checker.ehelp.textContent = "Invalid email format.";
             }else {
-                email.classList.remove("is-invalid");
-                submit.disabled = false;
-                ehelp.textContent = "";
+              checker.email.classList.remove("is-invalid");
+              checker.submit.disabled = false;
+              checker.ehelp.textContent = "";
             }
         }
         document.getElementById("newEmail").addEventListener("keyup", function() {

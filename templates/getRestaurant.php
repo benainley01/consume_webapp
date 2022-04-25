@@ -103,14 +103,14 @@
             <?php endif; ?>
           </ul>
 
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <input
               type="search"
               class="form-control"
               placeholder="Search..."
               aria-label="Search"
             />
-          </form>
+          </form> -->
 
           <?php
             if (isset($_SESSION["name"])){
@@ -312,17 +312,26 @@
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- <script>
         $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
         })
     </script> -->
     <script>
+      /*
+      reviewCount() edits the HTML for a restaurant's page to display 
+      the total amount of reviews that it has
+      */
       function reviewCount(){
         var table = document.getElementById("table");
         var totalRowCount = table.rows.length -1; // 5
-        console.log(totalRowCount)
-        document.getElementById("reviewCount").innerHTML = "This restaurant has " + totalRowCount + " reviews"
+        // console.log(totalRowCount)
+        if(totalRowCount == 1){
+          $('#reviewCount').html("This restaurant has " + totalRowCount + " review");
+        } else{
+          $('#reviewCount').html("This restaurant has " + totalRowCount + " reviews");
+        }
       }
     </script>
   </body>

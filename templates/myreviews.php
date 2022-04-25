@@ -99,14 +99,14 @@
             <?php endif; ?>
           </ul>
 
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <input
               type="search"
               class="form-control"
               placeholder="Search..."
               aria-label="Search"
             />
-          </form>
+          </form> -->
 
           <?php
             if (isset($_SESSION["name"])){
@@ -299,6 +299,11 @@
     ></script>
 
     <script>
+      /*
+      getCuisine() performs an AJAX request to retrieve the JSON containing
+      all restaurants for which a user has written reviews for. This JSON data is used 
+      to update a table on the myreviews.php page that shows the count of reviews for each type of cuisine. 
+      */
       function getCuisine(){
         var map = new Map();
 

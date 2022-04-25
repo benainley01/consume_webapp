@@ -98,14 +98,14 @@
             <?php endif; ?>
           </ul>
 
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <input
               type="search"
               class="form-control"
               placeholder="Search..."
               aria-label="Search"
             />
-          </form>
+          </form> -->
 
           <!-- <img
             src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
@@ -239,6 +239,10 @@
     ></script>
 
     <script>
+      /*
+      loginPasswordValidate() makes the field input invalid and displays a warning message 
+      until the password meets the requirements 
+      */
       function loginPasswordValidate(len=8){
           var password = document.getElementById("password");
           var passval = password.value;
@@ -257,6 +261,10 @@
         loginPasswordValidate(8);
       });
 
+      /*
+      loginEmailValidate() makes the field input invalid and displays a warning message 
+      until the input is in email format
+      */
       function loginEmailValidate(){
             var email = document.getElementById("email");
             var emailval = email.value

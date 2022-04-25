@@ -102,14 +102,14 @@
             <?php endif; ?>
           </ul>
 
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
             <input
               type="search"
               class="form-control"
               placeholder="Search..."
               aria-label="Search"
             />
-          </form>
+          </form> -->
 
           <?php
             if (isset($_SESSION["name"])){
@@ -203,6 +203,10 @@
     </script>
 
     <script>
+      /*
+      inputValidate() disables submit button and displays a red box stating that all form fields must be 
+      filled out until all inputs are provided. 
+      */
       function inputValidate(){
         var name = document.getElementById("restaurantName");
         var address = document.getElementById("address");
