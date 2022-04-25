@@ -312,6 +312,7 @@
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- <script>
         $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
@@ -321,8 +322,12 @@
       function reviewCount(){
         var table = document.getElementById("table");
         var totalRowCount = table.rows.length -1; // 5
-        console.log(totalRowCount)
-        document.getElementById("reviewCount").innerHTML = "This restaurant has " + totalRowCount + " reviews"
+        // console.log(totalRowCount)
+        if(totalRowCount == 1){
+          $('#reviewCount').html("This restaurant has " + totalRowCount + " review");
+        } else{
+          $('#reviewCount').html("This restaurant has " + totalRowCount + " reviews");
+        }
       }
     </script>
   </body>
