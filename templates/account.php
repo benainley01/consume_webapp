@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <!-- Link -->
-  <!-- https://cs4640.cs.virginia.edu/bsa2up/sprint2/ -->
+  <!-- https://cs4640.cs.virginia.edu/ndh9tsj/final_project/ -->
   <head>
     <meta charset="UTF-8" />
 
@@ -269,19 +269,22 @@
             // var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
             //use of JS object
-            const emailValidator = {
-              email: document.getElementById("newEmail"), 
-              emailval: email.value,
-              submit: document.getElementById("submitEmail"), 
-              ehelp: document.getElementById("ehelp"), 
-              regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            };
-            const checker = new emailValidator();
-            if (!regex.test(emailval)){
+            class emailValidator{
+              constructor() {
+                this.email = document.getElementById("newEmail");
+                this.emailval = this.email.value;
+                this.submit = document.getElementById("submitEmail");
+                this.ehelp = document.getElementById("ehelp");
+                this.regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+              }
+            }
+            var checker = new emailValidator();
+            if (!checker.regex.test(checker.emailval)){
               checker.email.classList.add("is-invalid");
               checker.submit.disabled = true; 
               checker.ehelp.textContent = "Invalid email format.";
             }else {
+              console.log("error");
               checker.email.classList.remove("is-invalid");
               checker.submit.disabled = false;
               checker.ehelp.textContent = "";
